@@ -1,0 +1,12 @@
+amqp==2.1.4
+billiard==3.5.0.2
+CampbellSCIParser==0.38b0
+cassandra-driver==3.9.0
+celery==4.0.2
+kombu==4.0.2
+py==1.4.31
+pytest==3.0.3
+pytz==2016.7
+PyYAML==3.12
+six==1.10.0
+vine==1.1.3

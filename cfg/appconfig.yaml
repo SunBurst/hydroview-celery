@@ -1,0 +1,140 @@
+malma_island:
+  daily:
+    first_line_num: 330
+    header_row: 0
+    parameters:
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: "\xB0C"}
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/malma_island_24_hour.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  daily_group:
+    first_line_num: 1
+    header_row: 0
+    parameters:
+      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 1 m, unit: "\xB0C"}
+      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 3 m, unit: "\xB0C"}
+      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 15 m, unit: "\xB0C"}
+    group_id: water_temperature
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/malma_island_24_hour.dat
+    table: daily_parameter_group_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  hourly_group:
+    first_line_num: 1
+    header_row: 0
+    parameters:
+      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 1 m, unit: "\xB0C"}
+      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 3 m, unit: "\xB0C"}
+      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 15 m, unit: "\xB0C"}
+    group_id: water_temperature
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/malma_island_1_hour.dat
+    table: hourly_parameter_group_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  5_min_group:
+    first_line_num: 1
+    header_row: 0
+    parameters:
+      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 1 m, unit: "\xB0C"}
+      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 3 m, unit: "\xB0C"}
+      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, sensor_id: malma_island_thermo_water,
+        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 15 m, unit: "\xB0C"}
+    group_id: water_temperature
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/malma_island_5_min.dat
+    table: parameter_group_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  5_min:
+    first_line_num: 92429
+    header_row: 0
+    parameters:
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: "\xB0C"}
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/malma_island_5_min.dat
+    table: single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  hourly:
+    first_line_num: 7703
+    header_row: 0
+    parameters:
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: "\xB0C"}
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/malma_island_1_hour.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+ysi_profiler:
+  daily:
+    first_line_num: 1
+    header_row: 0
+    parameters:
+      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: "\xB0C"}
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/ysi_profiler_24_hour_profile.dat
+    table: daily_profile_measurements_by_station
+    time_columns: [TMSTAMP]
+    depth_column: Vertical_Position_m
+    depth_correction_factor: 0.25
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  hourly:
+    first_line_num: 60000
+    header_row: 0
+    parameters:
+      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: "\xB0C"}
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/ysi_profiler_1_hour_profile.dat
+    table: hourly_profile_measurements_by_station
+    time_columns: [TMSTAMP]
+    depth_column: Vertical_Position_m
+    depth_correction_factor: 0.25
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true
+  high_frequency:
+    first_line_num: 1
+    header_row: 0
+    parameters:
+      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: "\xB0C"}
+    parse_time_columns: true
+    path: /home/marcus/data/erken_2017-04-23/ysi_profiler_high_frequency_profile.dat
+    table: profile_measurements_by_station
+    time_columns: [TMSTAMP]
+    depth_column: Vertical_Position_m
+    depth_correction_factor: 0.25
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: Etc/GMT-1
+    to_utc: true

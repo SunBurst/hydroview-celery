@@ -1,0 +1,30 @@
+2017/05/02 10:49:01 - cassandra_storage_info - INFO - Updated up to line number 330
+2017/05/02 10:49:01 - cassandra_storage_info - INFO - Done processing table daily_single_parameter_measurements_by_station
+2017/05/02 10:49:01 - cassandra_storage_info - INFO - Updating config file.
+2017/05/02 10:49:05 - cassandra_storage_info - INFO - Done processing table daily_single_parameter_measurements_by_station
+2017/05/02 10:49:05 - cassandra_storage_info - INFO - Updating config file.
+2017/05/02 10:53:44 - cassandra_storage_info - INFO - Updated up to line number 7703
+2017/05/02 10:53:44 - cassandra_storage_info - INFO - Done processing table hourly_single_parameter_measurements_by_station
+2017/05/02 10:53:44 - cassandra_storage_info - INFO - Updating config file.
+2017/05/02 10:59:25 - cassandra_storage_info - INFO - Done processing table hourly_single_parameter_measurements_by_station
+2017/05/02 10:59:25 - cassandra_storage_info - INFO - Updating config file.
+2017/05/02 11:03:06 - cassandra_storage_info - INFO - Updated up to line number 92429
+2017/05/02 11:03:06 - cassandra_storage_info - INFO - Done processing table single_parameter_measurements_by_station
+2017/05/02 11:03:06 - cassandra_storage_info - INFO - Updating config file.
+2017/05/02 11:46:04 - cassandra_storage_info - INFO - Done processing table hourly_profile_measurements_by_station
+2017/05/02 12:06:02 - cassandra_storage_info - INFO - Done processing table hourly_profile_measurements_by_station
+2017/05/02 12:49:41 - cassandra_storage_info - INFO - Done processing table hourly_profile_measurements_by_station
+2017/05/02 12:52:24 - cassandra_storage_info - INFO - Done processing table daily_profile_measurements_by_station
+2017/05/02 12:53:40 - cassandra_storage_info - INFO - Done processing table daily_profile_measurements_by_station
+2017/05/02 13:00:14 - cassandra_storage_info - INFO - Done processing table profile_measurements_by_station
+2017/05/02 13:02:08 - cassandra_storage_info - INFO - Done processing table profile_measurements_by_station
+2017/05/02 14:39:36 - cassandra_storage_info - INFO - Done processing table daily_parameter_group_measurements_by_station
+2017/05/02 14:53:07 - cassandra_storage_info - INFO - ('malma_island', 'water_temperature', 0, 2016, 1465164000000.0, 'Water Temperature 3 m', 'Thermocouple (Water)', 'water_temperature_3m', 'malma_island_thermo_water', 14.97943, '°C')
+2017/05/02 14:53:07 - cassandra_storage_info - INFO - Done processing table daily_parameter_group_measurements_by_station
+2017/05/02 14:58:07 - cassandra_storage_info - INFO - Done processing table daily_parameter_group_measurements_by_station
+2017/05/02 14:58:29 - cassandra_storage_info - INFO - Done processing table daily_parameter_group_measurements_by_station
+2017/05/02 14:59:47 - cassandra_storage_info - INFO - Done processing table daily_parameter_group_measurements_by_station
+2017/05/02 15:06:21 - cassandra_storage_info - INFO - Done processing table hourly_parameter_group_measurements_by_station
+2017/05/02 15:07:06 - cassandra_storage_info - INFO - Done processing table hourly_parameter_group_measurements_by_station
+2017/05/02 15:31:14 - cassandra_storage_info - INFO - Done processing table parameter_group_measurements_by_station
+2017/05/02 16:45:24 - cassandra_storage_info - INFO - Done processing table parameter_group_measurements_by_station
