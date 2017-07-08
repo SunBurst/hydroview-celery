@@ -36,6 +36,16 @@ logger_debug = logging.getLogger('cassandra_storage_debug')
 
 
 def process_daily_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_daily_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_daily_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_daily_profile_measurements_by_station_profile_source(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -71,8 +81,52 @@ def process_daily_profile_measurements_by_station(station, file):
         insert_to_daily_profile_measurements_by_station_time.delay(param_formatted_data)
  
     return num_of_new_rows
+    
+def process_daily_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        sensor_name = param_info.get('sensor_name')
+        depth = float(param_info.get('depth'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            day = datetime.datetime(ts.year, ts.month, ts.day)
+            year = int(day.strftime("%Y"))
+
+            param_formatted_data.append((station, parameter_id, 0, year, int(day.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+
+        insert_to_daily_profile_measurements_by_station_time.delay(param_formatted_data)
+ 
+    return num_of_new_rows
 
 def process_hourly_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_hourly_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_hourly_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_hourly_profile_measurements_by_station_profile_source(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -109,8 +163,53 @@ def process_hourly_profile_measurements_by_station(station, file):
         insert_to_hourly_profile_measurements_by_station_time.delay(param_formatted_data)
  
     return num_of_new_rows
+    
+def process_hourly_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        sensor_name = param_info.get('sensor_name')
+        depth = float(param_info.get('depth'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            day = datetime.datetime(ts.year, ts.month, ts.day)
+            year = int(day.strftime("%Y"))
+            hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, 0, 0)
+            
+            param_formatted_data.append((station, parameter_id, 0, year, int(hour.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+
+        insert_to_hourly_profile_measurements_by_station_time.delay(param_formatted_data)
+ 
+    return num_of_new_rows
         
 def process_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_profile_measurements_by_station_profile_source(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -141,6 +240,40 @@ def process_profile_measurements_by_station(station, file):
             depth = float(row.get(depth_column))
             if depth_correction_factor is not None:
                 depth = utils.round_of_rating(depth, depth_correction_factor)
+            param_formatted_data.append((station, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+
+        insert_to_profile_measurements_by_station_time.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+    
+def process_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        sensor_name = param_info.get('sensor_name')
+        depth = float(param_info.get('depth'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+
             param_formatted_data.append((station, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
 
         insert_to_profile_measurements_by_station_time.delay(param_formatted_data)
@@ -306,9 +439,9 @@ def process_hourly_parameter_group_measurements_by_station(station, file):
         
         for row in param_data:
             ts = row.get('timestamp')
-            day = datetime.datetime(ts.year, ts.month, ts.day)
-            year = int(day.strftime("%Y"))
-            parameter_group_formatted_data.append((station, group_id, 0, year, int(day.timestamp()) * 1e3, parameter_name, sensor_name, parameter_id, sensor_id, float(row.get(param)), unit))
+            day_hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute)
+            year = int(day_hour.strftime("%Y"))
+            parameter_group_formatted_data.append((station, group_id, 0, year, int(day_hour.timestamp()) * 1e3, parameter_name, sensor_name, parameter_id, sensor_id, float(row.get(param)), unit))
     
     insert_to_hourly_parameter_group_measurements_by_station.delay(parameter_group_formatted_data)
  

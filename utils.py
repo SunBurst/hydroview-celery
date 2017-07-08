@@ -44,7 +44,7 @@ def save_config(cfg_file, cfg_mod):
 
     """
     with open(cfg_file, "w+") as f:
-        yaml.dump(cfg_mod, f)
+        yaml.dump(cfg_mod, f, allow_unicode=True)
 
 
 def clean_data_output_dir(data_output_dir, *file_types):

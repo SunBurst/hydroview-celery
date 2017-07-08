@@ -13,12 +13,12 @@ handlers:
         class : logging.FileHandler
         formatter: simple
         level: DEBUG
-        filename: '/home/marcus/Python_Projects/cassandra-storage/logs/cassandra_storage_debug.log'
+        filename: '/home/erken/hydroview-celery/logs/cassandra_storage_debug.log'
     file_cassandra_storage_info:
         class : logging.FileHandler
         formatter: simple
         level: INFO
-        filename: '/home/marcus/Python_Projects/cassandra-storage/logs/cassandra_storage_info.log'
+        filename: '/home/erken/hydroview-celery/logs/cassandra_storage_info.log'
 loggers:
     cassandra_storage_debug:
         level: DEBUG

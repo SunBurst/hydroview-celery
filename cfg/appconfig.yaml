@@ -1,140 +1,1725 @@
-malma_island:
-  daily:
-    first_line_num: 330
+gliparna:
+  5_min_single_parameters:
+    first_line_num: 170755
     header_row: 0
     parameters:
-      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
-        sensor_name: Rotronic HW4, unit: "\xB0C"}
+      AirPressure_hPa_Avg: {parameter_id: air_pressure, sensor_id: gliparna_vaisala_barometer,
+        sensor_name: Vaisala Barometer, unit: hPa}
+      Air_Temp_AS_Avg: {parameter_id: air_temperature, sensor_id: gliparna_thermo_air,
+        sensor_name: Thermocouple (Passive Ventilation), unit: °C}
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: °C}
+      MeanWS: {parameter_id: wind_speed, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: m/s}
+      PAR_Rad_Avg: {parameter_id: par, sensor_id: gliparna_licor_li190sb, sensor_name: LiCor
+          LI190SB, unit: µE m⁻²s⁻¹}
+      RelHumidity_Avg: {parameter_id: relative_humidity, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: '%'}
+      SW_Rad_Avg: {parameter_id: shortwave_radiation, sensor_id: gliparna_pyranometer,
+        sensor_name: Pyranometer, unit: W/m²)}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: null}
+      Vapor_Pressure_Avg: {parameter_id: vapor_pressure, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: kPa}
+      Water_Temp_1m_Avg: {parameter_id: water_temperature, sensor_id: gliparna_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WindDir: {parameter_id: wind_direction, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: °}
     parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/malma_island_24_hour.dat
-    table: daily_single_parameter_measurements_by_station
-    time_columns: [TMSTAMP]
-    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  daily_group:
-    first_line_num: 1
-    header_row: 0
-    parameters:
-      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 1 m, unit: "\xB0C"}
-      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 3 m, unit: "\xB0C"}
-      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 15 m, unit: "\xB0C"}
-    group_id: water_temperature
-    parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/malma_island_24_hour.dat
-    table: daily_parameter_group_measurements_by_station
-    time_columns: [TMSTAMP]
-    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  hourly_group:
-    first_line_num: 1
-    header_row: 0
-    parameters:
-      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 1 m, unit: "\xB0C"}
-      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 3 m, unit: "\xB0C"}
-      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 15 m, unit: "\xB0C"}
-    group_id: water_temperature
-    parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/malma_island_1_hour.dat
-    table: hourly_parameter_group_measurements_by_station
-    time_columns: [TMSTAMP]
-    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  5_min_group:
-    first_line_num: 1
-    header_row: 0
-    parameters:
-      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 1 m, unit: "\xB0C"}
-      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 3 m, unit: "\xB0C"}
-      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, sensor_id: malma_island_thermo_water,
-        sensor_name: Thermocouple (Water), parameter_name: Water Temperature 15 m, unit: "\xB0C"}
-    group_id: water_temperature
-    parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/malma_island_5_min.dat
-    table: parameter_group_measurements_by_station
-    time_columns: [TMSTAMP]
-    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  5_min:
-    first_line_num: 92429
-    header_row: 0
-    parameters:
-      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
-        sensor_name: Rotronic HW4, unit: "\xB0C"}
-    parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/malma_island_5_min.dat
+    path: /home/erken/malaren/galten/5_min/galten_5_min.dat
     table: single_parameter_measurements_by_station
     time_columns: [TMSTAMP]
     time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  hourly:
-    first_line_num: 7703
+    time_zone: UTC
+    to_utc: false
+  daily_single_parameters:
+    first_line_num: 595
     header_row: 0
     parameters:
-      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
-        sensor_name: Rotronic HW4, unit: "\xB0C"}
+      AirPressure_hPa_Avg: {parameter_id: air_pressure, sensor_id: gliparna_vaisala_barometer,
+        sensor_name: Vaisala Barometer, unit: hPa}
+      Air_Temp_AS_Avg: {parameter_id: air_temperature, sensor_id: gliparna_thermo_air,
+        sensor_name: Thermocouple (Passive Ventilation), unit: °C}
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: °C}
+      MeanWS: {parameter_id: wind_speed, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: m/s}
+      PAR_Rad_Avg: {parameter_id: par, sensor_id: gliparna_licor_li190sb, sensor_name: LiCor
+          LI190SB, unit: µE m⁻²s⁻¹}
+      RelHumidity_Avg: {parameter_id: relative_humidity, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: '%'}
+      SW_Rad_Avg: {parameter_id: shortwave_radiation, sensor_id: gliparna_pyranometer,
+        sensor_name: Pyranometer, unit: W/m²)}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: null}
+      Vapor_Pressure_Avg: {parameter_id: vapor_pressure, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: kPa}
+      Water_Temp_1m_Avg: {parameter_id: water_temperature, sensor_id: gliparna_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WindDir: {parameter_id: wind_direction, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: °}
     parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/malma_island_1_hour.dat
+    path: /home/erken/malaren/galten/24_hour/galten_24_hour.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters:
+    first_line_num: 297
+    header_row: 0
+    parameters:
+      ACpower_Off_Tot: {parameter_id: power, sensor_id: gliparna_voltage_meter, sensor_name: Voltage
+          Meter, unit: Minutes}
+      BattV_Avg: {parameter_id: battery, sensor_id: gliparna_voltage_meter, sensor_name: Voltage
+          Meter, unit: V}
+      RefTemp_Avg: {parameter_id: panel_temperature, sensor_id: gliparna_panel_thermometer,
+        sensor_name: Panel Thermometer, unit: °C}
+    parse_time_columns: true
+    path: /home/erken/malaren/galten/24_hour_diagnostic/galten_24_hour_diagnostic.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters_old:
+    first_line_num: 1
+    header_row: 0
+    parameters:
+      ACpower_Off_Tot: {parameter_id: power, sensor_id: gliparna_voltage_meter, sensor_name: Voltage
+          Meter, unit: Minutes}
+      BattV_Avg: {parameter_id: battery, sensor_id: gliparna_voltage_meter, sensor_name: Voltage
+          Meter, unit: V}
+      RefTemp_Avg: {parameter_id: panel_temperature, sensor_id: gliparna_panel_thermometer,
+        sensor_name: Panel Thermometer, unit: °C}
+    parse_time_columns: true
+    path: /home/erken/malaren/galten/24_hour_diagnostic/galten_24_hour_diagnostic_old.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_single_parameters:
+    first_line_num: 14231
+    header_row: 0
+    parameters:
+      AirPressure_hPa_Avg: {parameter_id: air_pressure, sensor_id: gliparna_vaisala_barometer,
+        sensor_name: Vaisala Barometer, unit: hPa}
+      Air_Temp_AS_Avg: {parameter_id: air_temperature, sensor_id: gliparna_thermo_air,
+        sensor_name: Thermocouple (Passive Ventilation), unit: °C}
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: °C}
+      MeanWS: {parameter_id: wind_speed, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: m/s}
+      PAR_Rad_Avg: {parameter_id: par, sensor_id: gliparna_licor_li190sb, sensor_name: LiCor
+          LI190SB, unit: µE m⁻²s⁻¹}
+      RelHumidity_Avg: {parameter_id: relative_humidity, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: '%'}
+      SW_Rad_Avg: {parameter_id: shortwave_radiation, sensor_id: gliparna_pyranometer,
+        sensor_name: Pyranometer, unit: W/m²)}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: null}
+      Vapor_Pressure_Avg: {parameter_id: vapor_pressure, sensor_id: gliparna_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: kPa}
+      Water_Temp_1m_Avg: {parameter_id: water_temperature, sensor_id: gliparna_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WindDir: {parameter_id: wind_direction, sensor_id: gliparna_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: °}
+    parse_time_columns: true
+    path: /home/erken/malaren/galten/1_hour/galten_1_hour.dat
     table: hourly_single_parameter_measurements_by_station
     time_columns: [TMSTAMP]
     time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-ysi_profiler:
-  daily:
-    first_line_num: 1
+    time_zone: UTC
+    to_utc: false
+kristineholm:
+  5_min_single_parameters:
+    first_line_num: 128530
     header_row: 0
     parameters:
-      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
-        sensor_name: EXO 2 Sonde, unit: "\xB0C"}
+      C25uScm_1_AVG: {parameter_id: conductivity_at_25_degrees, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Ct_AVG: {parameter_id: conductivity, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Depth_cm_AVG: {parameter_id: stage_height, sensor_id: kristineholm_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: cm)}
+      Discharge_AVG: {parameter_id: discharge, sensor_id: kristineholm_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: l/s)}
+      WTemp1_AVG: {parameter_id: water_temperature, sensor_id: kristineholm_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C)}
+      Wtemp2_AVG: {parameter_id: water_temperature, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: °C)}
     parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/ysi_profiler_24_hour_profile.dat
-    table: daily_profile_measurements_by_station
+    path: /home/erken/erken/kristineholm/5_min/kristineholm_5_min.dat
+    table: single_parameter_measurements_by_station
     time_columns: [TMSTAMP]
-    depth_column: Vertical_Position_m
-    depth_correction_factor: 0.25
     time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  hourly:
-    first_line_num: 60000
+    time_zone: UTC
+    to_utc: false
+  daily_single_parameters:
+    first_line_num: 448
     header_row: 0
     parameters:
-      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
-        sensor_name: EXO 2 Sonde, unit: "\xB0C"}
+      C25uScm_1_AVG: {parameter_id: conductivity_at_25_degrees, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Ct_AVG: {parameter_id: conductivity, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Depth_cm_AVG: {parameter_id: stage_height, sensor_id: kristineholm_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: cm)}
+      Discharge_AVG: {parameter_id: discharge, sensor_id: kristineholm_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: l/s)}
+      WTemp1_AVG: {parameter_id: water_temperature, sensor_id: kristineholm_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C)}
+      Wtemp2_AVG: {parameter_id: water_temperature, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: °C)}
     parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/ysi_profiler_1_hour_profile.dat
+    path: /home/erken/erken/kristineholm/24_hour/kristineholm_24_hour.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters:
+    first_line_num: 448
+    header_row: 0
+    parameters:
+      Battery_AVG: {parameter_id: battery, sensor_id: kristineholm_voltage_meter,
+        sensor_name: Voltage Meter, unit: V}
+      PowerLoss: {parameter_id: power, sensor_id: kristineholm_voltage_meter, sensor_name: Voltage
+          Meter, unit: Minutes}
+      RefTemp_AVG: {parameter_id: panel_temperature, sensor_id: kristineholm_panel_thermometer,
+        sensor_name: Panel Thermometer, unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/kristineholm/24_hour_diagnostic/kristineholm_24_hour_diagnostic.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_single_parameters:
+    first_line_num: 10711
+    header_row: 0
+    parameters:
+      C25uScm_1_AVG: {parameter_id: conductivity_at_25_degrees, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      CDOM: {parameter_id: cdom, sensor_id: kristineholm_wet_labs_25_cm, sensor_name: Wet
+          Labs 25 cm, unit: m⁻¹)}
+      Ct_AVG: {parameter_id: conductivity, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Depth_cm_AVG: {parameter_id: stage_height, sensor_id: kristineholm_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: cm)}
+      Discharge_AVG: {parameter_id: discharge, sensor_id: kristineholm_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: l/s)}
+      WTemp1_AVG: {parameter_id: water_temperature, sensor_id: kristineholm_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C)}
+      Wtemp2_AVG: {parameter_id: water_temperature, sensor_id: kristineholm_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: °C)}
+      c: {parameter_id: beam_attenuation, sensor_id: kristineholm_transmissiometer,
+        sensor_name: Transmissiometer, unit: m⁻¹)}
+    parse_time_columns: true
+    path: /home/erken/erken/kristineholm/1_hour/kristineholm_1_hour.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+lovon_ysi_profiler:
+  hourly_profile:
+    depth_column: Vertical_Position_m
+    depth_correction_factor: 1.0
+    first_line_num: 23386
+    header_row: 0
+    parameters:
+      BGA_PC_ug_l: {parameter_id: blue_green_algae_phycocyanin, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      Chl_ug_l: {parameter_id: chlorophyll, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      ODO_mg_l: {parameter_id: dissolved_oxygen_mg_l, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mg/l}
+      ODO_percent: {parameter_id: dissolved_oxygen, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: '%'}
+      ORP_mV: {parameter_id: oxidation_reduction_potential, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mV}
+      Sp_Cond_uS_cm: {parameter_id: conductivity_at_25_degrees, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µS/cm}
+      Temp_c: {parameter_id: water_temperature, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: °C}
+      Turb_FNU: {parameter_id: turbidity, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: FNU}
+      fDOM_QSU: {parameter_id: fdom, sensor_id: lovon_ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: QSU}
+      pH: {parameter_id: ph, sensor_id: lovon_ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: pH}
+    parse_time_columns: true
+    path: /home/erken/malaren/lovon_ysi_profiler/1_hour_profile/ysi_profiler_1_hour_profile.dat
+    source: profiles
     table: hourly_profile_measurements_by_station
     time_columns: [TMSTAMP]
-    depth_column: Vertical_Position_m
-    depth_correction_factor: 0.25
     time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
-  high_frequency:
-    first_line_num: 1
+    time_zone: UTC
+    to_utc: false
+  hourly_single_parameters:
+    first_line_num: 1377
     header_row: 0
     parameters:
-      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
-        sensor_name: EXO 2 Sonde, unit: "\xB0C"}
+      BGA_PC_ug_l: {parameter_id: blue_green_algae_phycocyanin_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      Chl_ug_l: {parameter_id: chlorophyll_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      ODO_mg_l: {parameter_id: dissolved_oxygen_mg_l_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mg/l}
+      ODO_percent: {parameter_id: dissolved_oxygen_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: '%'}
+      ORP_mV: {parameter_id: oxidation_reduction_potential_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mV}
+      Sp_Cond_uS_cm: {parameter_id: conductivity_at_25_degrees_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µS/cm}
+      Temp_c: {parameter_id: water_temperature_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: °C}
+      Turb_FNU: {parameter_id: turbidity_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: FNU}
+      fDOM_QSU: {parameter_id: fdom_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: QSU}
+      pH: {parameter_id: ph_3_m, sensor_id: lovon_ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: pH}
     parse_time_columns: true
-    path: /home/marcus/data/erken_2017-04-23/ysi_profiler_high_frequency_profile.dat
+    path: /home/erken/malaren/lovon_ysi_profiler/1_hour_park/ysi_profiler_1_hour_park.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+malma_island:
+  5_min:
+    first_line_num: 115629
+    header_row: 0
+    parameters:
+      AirPressure_hPa_Avg: {parameter_id: air_pressure, sensor_id: malma_island_vaisala_barmoeter,
+        sensor_name: Vaisala Barometer, unit: hPa}
+      Air_Temp_AS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_thermo_air,
+        sensor_name: Thermocouple (Passive Ventilation), unit: °C}
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: °C}
+      MeanWS: {parameter_id: wind_speed, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: m/s}
+      PAR_Rad_Avg: {parameter_id: par, sensor_id: malma_island_licor_li190sb, sensor_name: LiCor
+          LI190SB, unit: µE m⁻²s⁻¹}
+      Rain_Tot: {parameter_id: rainfall, sensor_id: malma_island_tipping_bucket_rain_gauge,
+        sensor_name: Tipping Bucket Rain Gauge, unit: mm}
+      RelHumidity_Avg: {parameter_id: relative_humidity, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: '%'}
+      SW_Rad_Avg: {parameter_id: downwelling_shortwave_radiation, sensor_id: malma_island_pyranometer,
+        sensor_name: Pyranometer, unit: W/m²}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: null}
+      Vapor_Pressure_Avg: {parameter_id: vapor_pressure, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: kPa}
+      Water_Level_Avg: {parameter_id: water_level, sensor_id: malma_island_keller_pressure_transmitter,
+        sensor_name: Keller Pressure Transmitter, unit: AMSL}
+      WindDir: {parameter_id: wind_direction, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: °}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/5_min/malma_island_5_min.dat
+    table: single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  5_min_group:
+    first_line_num: 115629
+    group_id: water_temperature
+    header_row: 0
+    parameters:
+      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, parameter_name: Water
+          Temperature 15 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, parameter_name: Water
+          Temperature 1 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, parameter_name: Water
+          Temperature 3 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/5_min/malma_island_5_min.dat
+    table: parameter_group_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  5_min_net_rad:
+    first_line_num: 39627
+    header_row: 0
+    parameters:
+      Rl_net_Avg: {parameter_id: net_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      Rn_Avg: {parameter_id: net_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      Rs_net_Avg: {parameter_id: net_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      albedo_Avg: {parameter_id: albedo, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      long_dn_facing_corr_Avg: {parameter_id: upwelling_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      long_up_facing_corr_Avg: {parameter_id: downwelling_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      short_dn_facing_Avg: {parameter_id: upwelling_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      short_up_facing_Avg: {parameter_id: downwelling_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/5_min_net_rad/malma_island_5_min_net_rad.dat
+    table: single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_group:
+    first_line_num: 411
+    group_id: water_temperature
+    header_row: 0
+    parameters:
+      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, parameter_name: Water
+          Temperature 15 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, parameter_name: Water
+          Temperature 1 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, parameter_name: Water
+          Temperature 3 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/24_hour/malma_island_24_hour.dat
+    table: daily_parameter_group_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_net_rad:
+    first_line_num: 139
+    header_row: 0
+    parameters:
+      Rl_net_Avg: {parameter_id: net_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      Rn_Avg: {parameter_id: net_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      Rs_net_Avg: {parameter_id: net_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      albedo_Avg: {parameter_id: albedo, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      long_dn_facing_corr_Avg: {parameter_id: upwelling_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      long_up_facing_corr_Avg: {parameter_id: downwelling_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      short_dn_facing_Avg: {parameter_id: upwelling_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      short_up_facing_Avg: {parameter_id: downwelling_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/24_hour_net_rad/malma_island_24_hour_net_rad.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_parameters:
+    first_line_num: 411
+    header_row: 0
+    parameters:
+      AirPressure_hPa_Avg: {parameter_id: air_pressure, sensor_id: malma_island_vaisala_barometer,
+        sensor_name: Vaisala Barometer, unit: hPa}
+      Air_Temp_AS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_thermo_air,
+        sensor_name: Thermocouple (Passive Ventilation), unit: °C}
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: °C}
+      MeanWS: {parameter_id: wind_speed, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: m/s}
+      PAR_Rad_Avg: {parameter_id: par, sensor_id: malma_island_licor_li190sb, sensor_name: LiCor
+          LI190SB, unit: µE m⁻²s⁻¹}
+      Rain_Tot: {parameter_id: rainfall, sensor_id: malma_island_tipping_bucket_rain_gauge,
+        sensor_name: Tipping Bucket Rain Gauge, unit: mm}
+      RelHumidity_Avg: {parameter_id: relative_humidity, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: '%'}
+      SW_Rad_Avg: {parameter_id: downwelling_shortwave_radiation, sensor_id: malma_island_pyranometer,
+        sensor_name: Pyranometer, unit: W/m²)}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: null}
+      Vapor_Pressure_Avg: {parameter_id: vapor_pressure, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: kPa}
+      Water_Level_Avg: {parameter_id: water_level, sensor_id: malma_island_keller_pressure_transmitter,
+        sensor_name: Keller Pressure Transmitter, unit: AMSL}
+      WindDir: {parameter_id: wind_direction, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: °}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/24_hour/malma_island_24_hour.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters:
+    first_line_num: 146
+    header_row: 0
+    parameters:
+      ACpower_Off_Tot: {parameter_id: power, sensor_id: malma_island_voltage_meter,
+        sensor_name: Voltage Meter, unit: Minutes}
+      BattV_Avg: {parameter_id: battery, sensor_id: malma_island_voltage_meter, sensor_name: Voltage
+          Meter, unit: V}
+      PTemp_C_Avg: {parameter_id: panel_temperature, sensor_id: malma_island_panel_thermometer,
+        sensor_name: Panel Thermometer, unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/24_hour_diagnostic/malma_island_24_hour_diagnostic.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters_prog_5:
+    first_line_num: 241
+    header_row: 0
+    parameters:
+      ACpower_Off_Tot: {parameter_id: power, sensor_id: malma_island_voltage_meter,
+        sensor_name: Voltage Meter, unit: Minutes}
+      BattV_Avg: {parameter_id: battery, sensor_id: malma_island_voltage_meter, sensor_name: Voltage
+          Meter, unit: V}
+      PTemp_C_Avg: {parameter_id: panel_temperature, sensor_id: malma_island_panel_thermometer,
+        sensor_name: Panel Thermometer, unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/24_hour_diagnostic_prog_5/malma_island_24_hour_diagnostic_prog_5.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly:
+    first_line_num: 9638
+    header_row: 0
+    parameters:
+      AirPressure_hPa_Avg: {parameter_id: air_pressure, sensor_id: malma_island_vaisala_barometer,
+        sensor_name: Vaisala Barometer, unit: hPa}
+      Air_Temp_AS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_thermo_air,
+        sensor_name: Thermocouple (Passive Ventilation), unit: °C}
+      Air_Temp_HS_Avg: {parameter_id: air_temperature, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: °C}
+      MeanWS: {parameter_id: wind_speed, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: m/s}
+      PAR_Rad_Avg: {parameter_id: par, sensor_id: malma_island_licor_li190sb, sensor_name: LiCor
+          LI190SB, unit: µE m⁻²s⁻¹}
+      Rain_Tot: {parameter_id: rainfall, sensor_id: malma_island_tipping_bucket_rain_gauge,
+        sensor_name: Tipping Bucket Rain Gauge, unit: mm}
+      RelHumidity_Avg: {parameter_id: relative_humidity, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: '%'}
+      SW_Rad_Avg: {parameter_id: downwelling_shortwave_radiation, sensor_id: malma_island_pyranometer,
+        sensor_name: Pyranometer, unit: W/m²}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: null}
+      Vapor_Pressure_Avg: {parameter_id: vapor_pressure, sensor_id: malma_island_rotronic_hw4,
+        sensor_name: Rotronic HW4, unit: kPa}
+      Water_Level_Avg: {parameter_id: water_level, sensor_id: malma_island_keller_pressure_transmitter,
+        sensor_name: Keller Pressure Transmitter, unit: AMSL}
+      WindDir: {parameter_id: wind_direction, sensor_id: malma_island_rm_young_wind_monitor,
+        sensor_name: RM Young Wind Monitor, unit: °}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/1_hour/malma_island_1_hour.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_group:
+    first_line_num: 9638
+    group_id: water_temperature
+    header_row: 0
+    parameters:
+      Water_Temp_15m_Avg: {parameter_id: water_temperature_15m, parameter_name: Water
+          Temperature 15 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+      Water_Temp_1m_Avg: {parameter_id: water_temperature_1m, parameter_name: Water
+          Temperature 1 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+      Water_Temp_3m_Avg: {parameter_id: water_temperature_3m, parameter_name: Water
+          Temperature 3 m, sensor_id: malma_island_thermo_water, sensor_name: Thermocouple
+          (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/1_hour/malma_island_1_hour.dat
+    table: hourly_parameter_group_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_net_rad:
+    first_line_num: 3304
+    header_row: 0
+    parameters:
+      Rl_net_Avg: {parameter_id: net_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      Rn_Avg: {parameter_id: net_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      Rs_net_Avg: {parameter_id: net_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      albedo_Avg: {parameter_id: albedo, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      long_dn_facing_corr_Avg: {parameter_id: upwelling_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      long_up_facing_corr_Avg: {parameter_id: downwelling_longwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      short_dn_facing_Avg: {parameter_id: upwelling_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+      short_up_facing_Avg: {parameter_id: downwelling_shortwave_radiation, sensor_id: malma_island_kipp_and_zonen_cnr_4,
+        sensor_name: Kipp & Zonen CNR 4, unit: W/m²}
+    parse_time_columns: true
+    path: /home/erken/erken/malma_island/1_hour_net_rad/malma_island_1_hour_net_rad.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+sites_aquanet_erken:
+  daily_single_parameters:
+    first_line_num: 9
+    header_row: 0
+    parameters:
+      Chloro_Trilux_Avg(1): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_1,
+        sensor_name: Trilux (mesocosm 1), unit: µg/l}
+      Chloro_Trilux_Avg(10): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_10,
+        sensor_name: Trilux (mesocosm 10), unit: µg/l}
+      Chloro_Trilux_Avg(11): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_11,
+        sensor_name: Trilux (mesocosm 11), unit: µg/l}
+      Chloro_Trilux_Avg(12): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_12,
+        sensor_name: Trilux (mesocosm 12), unit: µg/l}
+      Chloro_Trilux_Avg(13): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_13,
+        sensor_name: Trilux (mesocosm 13), unit: µg/l}
+      Chloro_Trilux_Avg(14): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_14,
+        sensor_name: Trilux (mesocosm 14), unit: µg/l}
+      Chloro_Trilux_Avg(15): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_15,
+        sensor_name: Trilux (mesocosm 15), unit: µg/l}
+      Chloro_Trilux_Avg(16): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_16,
+        sensor_name: Trilux (mesocosm 16), unit: µg/l}
+      Chloro_Trilux_Avg(2): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_2,
+        sensor_name: Trilux (mesocosm 2), unit: µg/l}
+      Chloro_Trilux_Avg(3): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_3,
+        sensor_name: Trilux (mesocosm 3), unit: µg/l}
+      Chloro_Trilux_Avg(4): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_4,
+        sensor_name: Trilux (mesocosm 4), unit: µg/l}
+      Chloro_Trilux_Avg(5): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_5,
+        sensor_name: Trilux (mesocosm 5), unit: µg/l}
+      Chloro_Trilux_Avg(6): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_6,
+        sensor_name: Trilux (mesocosm 6), unit: µg/l}
+      Chloro_Trilux_Avg(7): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_7,
+        sensor_name: Trilux (mesocosm 7), unit: µg/l}
+      Chloro_Trilux_Avg(8): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_8,
+        sensor_name: Trilux (mesocosm 8), unit: µg/l}
+      Chloro_Trilux_Avg(9): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_9,
+        sensor_name: Trilux (mesocosm 9), unit: µg/l}
+      Chloro_Trilux_lake_Avg: {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_lake,
+        sensor_name: Trilux (lake), unit: µg/l}
+      DOconc_optode_Avg(1): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_1,
+        sensor_name: Optode (mesocosm 1), unit: mg/l}
+      DOconc_optode_Avg(10): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_10,
+        sensor_name: Optode (mesocosm 10), unit: mg/l}
+      DOconc_optode_Avg(11): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_11,
+        sensor_name: Optode (mesocosm 11), unit: mg/l}
+      DOconc_optode_Avg(12): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_12,
+        sensor_name: Optode (mesocosm 12), unit: mg/l}
+      DOconc_optode_Avg(13): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_13,
+        sensor_name: Optode (mesocosm 13), unit: mg/l}
+      DOconc_optode_Avg(14): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_14,
+        sensor_name: Optode (mesocosm 14), unit: mg/l}
+      DOconc_optode_Avg(15): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_15,
+        sensor_name: Optode (mesocosm 15), unit: mg/l}
+      DOconc_optode_Avg(16): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_16,
+        sensor_name: Optode (mesocosm 16), unit: mg/l}
+      DOconc_optode_Avg(2): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_2,
+        sensor_name: Optode (mesocosm 2), unit: mg/l}
+      DOconc_optode_Avg(3): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_3,
+        sensor_name: Optode (mesocosm 3), unit: mg/l}
+      DOconc_optode_Avg(4): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_4,
+        sensor_name: Optode (mesocosm 4), unit: mg/l}
+      DOconc_optode_Avg(5): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_5,
+        sensor_name: Optode (mesocosm 5), unit: mg/l}
+      DOconc_optode_Avg(6): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_6,
+        sensor_name: Optode (mesocosm 6), unit: mg/l}
+      DOconc_optode_Avg(7): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_7,
+        sensor_name: Optode (mesocosm 7), unit: mg/l}
+      DOconc_optode_Avg(8): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_8,
+        sensor_name: Optode (mesocosm 8), unit: mg/l}
+      DOconc_optode_Avg(9): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_9,
+        sensor_name: Optode (mesocosm 9), unit: mg/l}
+      DOconc_optode_lake_Avg: {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_lake,
+        sensor_name: Optode (lake), unit: mg/l}
+      DOsat_optode_Avg(1): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_1,
+        sensor_name: Optode (mesocosm 1), unit: '%'}
+      DOsat_optode_Avg(10): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_10,
+        sensor_name: Optode (mesocosm 10), unit: '%'}
+      DOsat_optode_Avg(11): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_11,
+        sensor_name: Optode (mesocosm 11), unit: '%'}
+      DOsat_optode_Avg(12): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_12,
+        sensor_name: Optode (mesocosm 12), unit: '%'}
+      DOsat_optode_Avg(13): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_13,
+        sensor_name: Optode (mesocosm 13), unit: '%'}
+      DOsat_optode_Avg(14): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_14,
+        sensor_name: Optode (mesocosm 14), unit: '%'}
+      DOsat_optode_Avg(15): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_15,
+        sensor_name: Optode (mesocosm 15), unit: '%'}
+      DOsat_optode_Avg(16): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_16,
+        sensor_name: Optode (mesocosm 16), unit: '%'}
+      DOsat_optode_Avg(2): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_2,
+        sensor_name: Optode (mesocosm 2), unit: '%'}
+      DOsat_optode_Avg(3): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_3,
+        sensor_name: Optode (mesocosm 3), unit: '%'}
+      DOsat_optode_Avg(4): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_4,
+        sensor_name: Optode (mesocosm 4), unit: '%'}
+      DOsat_optode_Avg(5): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_5,
+        sensor_name: Optode (mesocosm 5), unit: '%'}
+      DOsat_optode_Avg(6): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_6,
+        sensor_name: Optode (mesocosm 6), unit: '%'}
+      DOsat_optode_Avg(7): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_7,
+        sensor_name: Optode (mesocosm 7), unit: '%'}
+      DOsat_optode_Avg(8): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_8,
+        sensor_name: Optode (mesocosm 8), unit: '%'}
+      DOsat_optode_Avg(9): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_9,
+        sensor_name: Optode (mesocosm 9), unit: '%'}
+      DOsat_optode_lake_Avg: {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_lake,
+        sensor_name: Optode (lake), unit: '%'}
+      Neph_Trilux_Avg(1): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_1,
+        sensor_name: Trilux (mesocosm 1), unit: FTU}
+      Neph_Trilux_Avg(10): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_10,
+        sensor_name: Trilux (mesocosm 10), unit: FTU}
+      Neph_Trilux_Avg(11): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_11,
+        sensor_name: Trilux (mesocosm 11), unit: FTU}
+      Neph_Trilux_Avg(12): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_12,
+        sensor_name: Trilux (mesocosm 12), unit: FTU}
+      Neph_Trilux_Avg(13): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_13,
+        sensor_name: Trilux (mesocosm 13), unit: FTU}
+      Neph_Trilux_Avg(14): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_14,
+        sensor_name: Trilux (mesocosm 14), unit: FTU}
+      Neph_Trilux_Avg(15): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_15,
+        sensor_name: Trilux (mesocosm 15), unit: FTU}
+      Neph_Trilux_Avg(16): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_16,
+        sensor_name: Trilux (mesocosm 16), unit: FTU}
+      Neph_Trilux_Avg(2): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_2,
+        sensor_name: Trilux (mesocosm 2), unit: FTU}
+      Neph_Trilux_Avg(3): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_3,
+        sensor_name: Trilux (mesocosm 3), unit: FTU}
+      Neph_Trilux_Avg(4): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_4,
+        sensor_name: Trilux (mesocosm 4), unit: FTU}
+      Neph_Trilux_Avg(5): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_5,
+        sensor_name: Trilux (mesocosm 5), unit: FTU}
+      Neph_Trilux_Avg(6): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_6,
+        sensor_name: Trilux (mesocosm 6), unit: FTU}
+      Neph_Trilux_Avg(7): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_7,
+        sensor_name: Trilux (mesocosm 7), unit: FTU}
+      Neph_Trilux_Avg(8): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_8,
+        sensor_name: Trilux (mesocosm 8), unit: FTU}
+      Neph_Trilux_Avg(9): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_9,
+        sensor_name: Trilux (mesocosm 9), unit: FTU}
+      Neph_Trilux_lake_Avg: {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_lake,
+        sensor_name: Trilux (lake), unit: FTU}
+      PAR_Apogee_Avg(1): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_1,
+        sensor_name: Apogee (mesocosm 1), unit: µg/l}
+      PAR_Apogee_Avg(10): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_10,
+        sensor_name: Apogee (mesocosm 10), unit: µg/l}
+      PAR_Apogee_Avg(11): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_11,
+        sensor_name: Apogee (mesocosm 11), unit: µg/l}
+      PAR_Apogee_Avg(12): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_12,
+        sensor_name: Apogee (mesocosm 12), unit: µg/l}
+      PAR_Apogee_Avg(13): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_13,
+        sensor_name: Apogee (mesocosm 13), unit: µg/l}
+      PAR_Apogee_Avg(14): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_14,
+        sensor_name: Apogee (mesocosm 14), unit: µg/l}
+      PAR_Apogee_Avg(15): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_15,
+        sensor_name: Apogee (mesocosm 15), unit: µg/l}
+      PAR_Apogee_Avg(16): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_16,
+        sensor_name: Apogee (mesocosm 16), unit: µg/l}
+      PAR_Apogee_Avg(2): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_2,
+        sensor_name: Apogee (mesocosm 2), unit: µg/l}
+      PAR_Apogee_Avg(3): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_3,
+        sensor_name: Apogee (mesocosm 3), unit: µg/l}
+      PAR_Apogee_Avg(4): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_4,
+        sensor_name: Apogee (mesocosm 4), unit: µg/l}
+      PAR_Apogee_Avg(5): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_5,
+        sensor_name: Apogee (mesocosm 5), unit: µg/l}
+      PAR_Apogee_Avg(6): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_6,
+        sensor_name: Apogee (mesocosm 6), unit: µg/l}
+      PAR_Apogee_Avg(7): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_7,
+        sensor_name: Apogee (mesocosm 7), unit: µg/l}
+      PAR_Apogee_Avg(8): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_8,
+        sensor_name: Apogee (mesocosm 8), unit: µg/l}
+      PAR_Apogee_Avg(9): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_9,
+        sensor_name: Apogee (mesocosm 9), unit: µg/l}
+      PAR_Apogee_lake_0dm_Avg: {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_lake_surface,
+        sensor_name: 'Apogee (lake, measured at surface)', unit: µE m⁻²s⁻¹}
+      PAR_Apogee_lake_4dm_Avg: {at 4 dm): null, parameter_id: par, sensor_id: sites_aquanet_erken_apogee_4_dm_lake,
+        sensor_name: 'Apogee (lake, measured at 4 dm)', unit: µE m⁻²s⁻¹}
+      Phycocy_Trilux_Avg(1): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_1,
+        sensor_name: Trilux (mesocosm 1), unit: µg/l}
+      Phycocy_Trilux_Avg(10): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_10,
+        sensor_name: Trilux (mesocosm 10), unit: µg/l}
+      Phycocy_Trilux_Avg(11): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_11,
+        sensor_name: Trilux (mesocosm 11), unit: µg/l}
+      Phycocy_Trilux_Avg(12): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_12,
+        sensor_name: Trilux (mesocosm 12), unit: µg/l}
+      Phycocy_Trilux_Avg(13): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_13,
+        sensor_name: Trilux (mesocosm 13), unit: µg/l}
+      Phycocy_Trilux_Avg(14): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_14,
+        sensor_name: Trilux (mesocosm 14), unit: µg/l}
+      Phycocy_Trilux_Avg(15): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_15,
+        sensor_name: Trilux (mesocosm 15), unit: µg/l}
+      Phycocy_Trilux_Avg(16): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_16,
+        sensor_name: Trilux (mesocosm 16), unit: µg/l}
+      Phycocy_Trilux_Avg(2): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_2,
+        sensor_name: Trilux (mesocosm 2), unit: µg/l}
+      Phycocy_Trilux_Avg(3): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_3,
+        sensor_name: Trilux (mesocosm 3), unit: µg/l}
+      Phycocy_Trilux_Avg(4): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_4,
+        sensor_name: Trilux (mesocosm 4), unit: µg/l}
+      Phycocy_Trilux_Avg(5): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_5,
+        sensor_name: Trilux (mesocosm 5), unit: µg/l}
+      Phycocy_Trilux_Avg(6): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_6,
+        sensor_name: Trilux (mesocosm 6), unit: µg/l}
+      Phycocy_Trilux_Avg(7): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_7,
+        sensor_name: Trilux (mesocosm 7), unit: µg/l}
+      Phycocy_Trilux_Avg(8): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_8,
+        sensor_name: Trilux (mesocosm 8), unit: µg/l}
+      Phycocy_Trilux_Avg(9): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_9,
+        sensor_name: Trilux (mesocosm 9), unit: µg/l}
+      Phycocy_Trilux_lake_Avg: {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_lake,
+        sensor_name: Trilux (lake), unit: µg/l}
+      Temp_optode_Avg(1): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_1,
+        sensor_name: Optode (mesocosm 1), unit: °C}
+      Temp_optode_Avg(10): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_10,
+        sensor_name: Optode (mesocosm 10), unit: °C}
+      Temp_optode_Avg(11): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_11,
+        sensor_name: Optode (mesocosm 11), unit: °C}
+      Temp_optode_Avg(12): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_12,
+        sensor_name: Optode (mesocosm 12), unit: °C}
+      Temp_optode_Avg(13): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_13,
+        sensor_name: Optode (mesocosm 13), unit: °C}
+      Temp_optode_Avg(14): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_14,
+        sensor_name: Optode (mesocosm 14), unit: °C}
+      Temp_optode_Avg(15): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_15,
+        sensor_name: Optode (mesocosm 15), unit: °C}
+      Temp_optode_Avg(16): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_16,
+        sensor_name: Optode (mesocosm 16), unit: °C}
+      Temp_optode_Avg(2): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_2,
+        sensor_name: Optode (mesocosm 2), unit: °C}
+      Temp_optode_Avg(3): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_3,
+        sensor_name: Optode (mesocosm 3), unit: °C}
+      Temp_optode_Avg(4): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_4,
+        sensor_name: Optode (mesocosm 4), unit: °C}
+      Temp_optode_Avg(5): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_5,
+        sensor_name: Optode (mesocosm 5), unit: °C}
+      Temp_optode_Avg(6): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_6,
+        sensor_name: Optode (mesocosm 6), unit: °C}
+      Temp_optode_Avg(7): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_7,
+        sensor_name: Optode (mesocosm 7), unit: °C}
+      Temp_optode_Avg(8): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_8,
+        sensor_name: Optode (mesocosm 8), unit: °C}
+      Temp_optode_Avg(9): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_9,
+        sensor_name: Optode (mesocosm 9), unit: °C}
+      Temp_optode_lake_Avg: {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_lake,
+        sensor_name: Optode (lake), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/sites_aquanet_erken/24_hour/sites_aquanet_erken_24_hour.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_single_parameters:
+    first_line_num: 215
+    header_row: 0
+    parameters:
+      Chloro_Trilux_Avg(1): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_1,
+        sensor_name: Trilux (mesocosm 1), unit: µg/l}
+      Chloro_Trilux_Avg(10): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_10,
+        sensor_name: Trilux (mesocosm 10), unit: µg/l}
+      Chloro_Trilux_Avg(11): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_11,
+        sensor_name: Trilux (mesocosm 11), unit: µg/l}
+      Chloro_Trilux_Avg(12): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_12,
+        sensor_name: Trilux (mesocosm 12), unit: µg/l}
+      Chloro_Trilux_Avg(13): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_13,
+        sensor_name: Trilux (mesocosm 13), unit: µg/l}
+      Chloro_Trilux_Avg(14): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_14,
+        sensor_name: Trilux (mesocosm 14), unit: µg/l}
+      Chloro_Trilux_Avg(15): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_15,
+        sensor_name: Trilux (mesocosm 15), unit: µg/l}
+      Chloro_Trilux_Avg(16): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_16,
+        sensor_name: Trilux (mesocosm 16), unit: µg/l}
+      Chloro_Trilux_Avg(2): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_2,
+        sensor_name: Trilux (mesocosm 2), unit: µg/l}
+      Chloro_Trilux_Avg(3): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_3,
+        sensor_name: Trilux (mesocosm 3), unit: µg/l}
+      Chloro_Trilux_Avg(4): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_4,
+        sensor_name: Trilux (mesocosm 4), unit: µg/l}
+      Chloro_Trilux_Avg(5): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_5,
+        sensor_name: Trilux (mesocosm 5), unit: µg/l}
+      Chloro_Trilux_Avg(6): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_6,
+        sensor_name: Trilux (mesocosm 6), unit: µg/l}
+      Chloro_Trilux_Avg(7): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_7,
+        sensor_name: Trilux (mesocosm 7), unit: µg/l}
+      Chloro_Trilux_Avg(8): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_8,
+        sensor_name: Trilux (mesocosm 8), unit: µg/l}
+      Chloro_Trilux_Avg(9): {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_meso_9,
+        sensor_name: Trilux (mesocosm 9), unit: µg/l}
+      Chloro_Trilux_lake_Avg: {parameter_id: chlorophyll, sensor_id: sites_aquanet_erken_trilux_lake,
+        sensor_name: Trilux (lake), unit: µg/l}
+      DOconc_optode_Avg(1): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_1,
+        sensor_name: Optode (mesocosm 1), unit: mg/l}
+      DOconc_optode_Avg(10): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_10,
+        sensor_name: Optode (mesocosm 10), unit: mg/l}
+      DOconc_optode_Avg(11): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_11,
+        sensor_name: Optode (mesocosm 11), unit: mg/l}
+      DOconc_optode_Avg(12): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_12,
+        sensor_name: Optode (mesocosm 12), unit: mg/l}
+      DOconc_optode_Avg(13): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_13,
+        sensor_name: Optode (mesocosm 13), unit: mg/l}
+      DOconc_optode_Avg(14): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_14,
+        sensor_name: Optode (mesocosm 14), unit: mg/l}
+      DOconc_optode_Avg(15): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_15,
+        sensor_name: Optode (mesocosm 15), unit: mg/l}
+      DOconc_optode_Avg(16): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_16,
+        sensor_name: Optode (mesocosm 16), unit: mg/l}
+      DOconc_optode_Avg(2): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_2,
+        sensor_name: Optode (mesocosm 2), unit: mg/l}
+      DOconc_optode_Avg(3): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_3,
+        sensor_name: Optode (mesocosm 3), unit: mg/l}
+      DOconc_optode_Avg(4): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_4,
+        sensor_name: Optode (mesocosm 4), unit: mg/l}
+      DOconc_optode_Avg(5): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_5,
+        sensor_name: Optode (mesocosm 5), unit: mg/l}
+      DOconc_optode_Avg(6): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_6,
+        sensor_name: Optode (mesocosm 6), unit: mg/l}
+      DOconc_optode_Avg(7): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_7,
+        sensor_name: Optode (mesocosm 7), unit: mg/l}
+      DOconc_optode_Avg(8): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_8,
+        sensor_name: Optode (mesocosm 8), unit: mg/l}
+      DOconc_optode_Avg(9): {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_meso_9,
+        sensor_name: Optode (mesocosm 9), unit: mg/l}
+      DOconc_optode_lake_Avg: {parameter_id: dissolved_oxygen_mg_l, sensor_id: sites_aquanet_erken_optode_lake,
+        sensor_name: Optode (lake), unit: mg/l}
+      DOsat_optode_Avg(1): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_1,
+        sensor_name: Optode (mesocosm 1), unit: '%'}
+      DOsat_optode_Avg(10): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_10,
+        sensor_name: Optode (mesocosm 10), unit: '%'}
+      DOsat_optode_Avg(11): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_11,
+        sensor_name: Optode (mesocosm 11), unit: '%'}
+      DOsat_optode_Avg(12): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_12,
+        sensor_name: Optode (mesocosm 12), unit: '%'}
+      DOsat_optode_Avg(13): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_13,
+        sensor_name: Optode (mesocosm 13), unit: '%'}
+      DOsat_optode_Avg(14): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_14,
+        sensor_name: Optode (mesocosm 14), unit: '%'}
+      DOsat_optode_Avg(15): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_15,
+        sensor_name: Optode (mesocosm 15), unit: '%'}
+      DOsat_optode_Avg(16): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_16,
+        sensor_name: Optode (mesocosm 16), unit: '%'}
+      DOsat_optode_Avg(2): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_2,
+        sensor_name: Optode (mesocosm 2), unit: '%'}
+      DOsat_optode_Avg(3): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_3,
+        sensor_name: Optode (mesocosm 3), unit: '%'}
+      DOsat_optode_Avg(4): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_4,
+        sensor_name: Optode (mesocosm 4), unit: '%'}
+      DOsat_optode_Avg(5): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_5,
+        sensor_name: Optode (mesocosm 5), unit: '%'}
+      DOsat_optode_Avg(6): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_6,
+        sensor_name: Optode (mesocosm 6), unit: '%'}
+      DOsat_optode_Avg(7): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_7,
+        sensor_name: Optode (mesocosm 7), unit: '%'}
+      DOsat_optode_Avg(8): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_8,
+        sensor_name: Optode (mesocosm 8), unit: '%'}
+      DOsat_optode_Avg(9): {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_meso_9,
+        sensor_name: Optode (mesocosm 9), unit: '%'}
+      DOsat_optode_lake_Avg: {parameter_id: dissolved_oxygen, sensor_id: sites_aquanet_erken_optode_lake,
+        sensor_name: Optode (lake), unit: '%'}
+      Neph_Trilux_Avg(1): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_1,
+        sensor_name: Trilux (mesocosm 1), unit: FTU}
+      Neph_Trilux_Avg(10): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_10,
+        sensor_name: Trilux (mesocosm 10), unit: FTU}
+      Neph_Trilux_Avg(11): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_11,
+        sensor_name: Trilux (mesocosm 11), unit: FTU}
+      Neph_Trilux_Avg(12): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_12,
+        sensor_name: Trilux (mesocosm 12), unit: FTU}
+      Neph_Trilux_Avg(13): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_13,
+        sensor_name: Trilux (mesocosm 13), unit: FTU}
+      Neph_Trilux_Avg(14): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_14,
+        sensor_name: Trilux (mesocosm 14), unit: FTU}
+      Neph_Trilux_Avg(15): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_15,
+        sensor_name: Trilux (mesocosm 15), unit: FTU}
+      Neph_Trilux_Avg(16): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_16,
+        sensor_name: Trilux (mesocosm 16), unit: FTU}
+      Neph_Trilux_Avg(2): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_2,
+        sensor_name: Trilux (mesocosm 2), unit: FTU}
+      Neph_Trilux_Avg(3): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_3,
+        sensor_name: Trilux (mesocosm 3), unit: FTU}
+      Neph_Trilux_Avg(4): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_4,
+        sensor_name: Trilux (mesocosm 4), unit: FTU}
+      Neph_Trilux_Avg(5): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_5,
+        sensor_name: Trilux (mesocosm 5), unit: FTU}
+      Neph_Trilux_Avg(6): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_6,
+        sensor_name: Trilux (mesocosm 6), unit: FTU}
+      Neph_Trilux_Avg(7): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_7,
+        sensor_name: Trilux (mesocosm 7), unit: FTU}
+      Neph_Trilux_Avg(8): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_8,
+        sensor_name: Trilux (mesocosm 8), unit: FTU}
+      Neph_Trilux_Avg(9): {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_meso_9,
+        sensor_name: Trilux (mesocosm 9), unit: FTU}
+      Neph_Trilux_lake_Avg: {parameter_id: turbidity, sensor_id: sites_aquanet_erken_trilux_lake,
+        sensor_name: Trilux (lake), unit: FTU}
+      PAR_Apogee_Avg(1): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_1,
+        sensor_name: Apogee (mesocosm 1), unit: µg/l}
+      PAR_Apogee_Avg(10): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_10,
+        sensor_name: Apogee (mesocosm 10), unit: µg/l}
+      PAR_Apogee_Avg(11): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_11,
+        sensor_name: Apogee (mesocosm 11), unit: µg/l}
+      PAR_Apogee_Avg(12): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_12,
+        sensor_name: Apogee (mesocosm 12), unit: µg/l}
+      PAR_Apogee_Avg(13): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_13,
+        sensor_name: Apogee (mesocosm 13), unit: µg/l}
+      PAR_Apogee_Avg(14): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_14,
+        sensor_name: Apogee (mesocosm 14), unit: µg/l}
+      PAR_Apogee_Avg(15): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_15,
+        sensor_name: Apogee (mesocosm 15), unit: µg/l}
+      PAR_Apogee_Avg(16): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_16,
+        sensor_name: Apogee (mesocosm 16), unit: µg/l}
+      PAR_Apogee_Avg(2): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_2,
+        sensor_name: Apogee (mesocosm 2), unit: µg/l}
+      PAR_Apogee_Avg(3): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_3,
+        sensor_name: Apogee (mesocosm 3), unit: µg/l}
+      PAR_Apogee_Avg(4): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_4,
+        sensor_name: Apogee (mesocosm 4), unit: µg/l}
+      PAR_Apogee_Avg(5): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_5,
+        sensor_name: Apogee (mesocosm 5), unit: µg/l}
+      PAR_Apogee_Avg(6): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_6,
+        sensor_name: Apogee (mesocosm 6), unit: µg/l}
+      PAR_Apogee_Avg(7): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_7,
+        sensor_name: Apogee (mesocosm 7), unit: µg/l}
+      PAR_Apogee_Avg(8): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_8,
+        sensor_name: Apogee (mesocosm 8), unit: µg/l}
+      PAR_Apogee_Avg(9): {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_meso_9,
+        sensor_name: Apogee (mesocosm 9), unit: µg/l}
+      PAR_Apogee_lake_0dm_Avg: {parameter_id: par, sensor_id: sites_aquanet_erken_apogee_lake_surface,
+        sensor_name: 'Apogee (lake, measured at surface)', unit: µE m⁻²s⁻¹}
+      PAR_Apogee_lake_4dm_Avg: {at 4 dm): null, parameter_id: par, sensor_id: sites_aquanet_erken_apogee_4_dm_lake,
+        sensor_name: 'Apogee (lake, measured at 4 dm)', unit: µE m⁻²s⁻¹}
+      Phycocy_Trilux_Avg(1): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_1,
+        sensor_name: Trilux (mesocosm 1), unit: µg/l}
+      Phycocy_Trilux_Avg(10): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_10,
+        sensor_name: Trilux (mesocosm 10), unit: µg/l}
+      Phycocy_Trilux_Avg(11): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_11,
+        sensor_name: Trilux (mesocosm 11), unit: µg/l}
+      Phycocy_Trilux_Avg(12): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_12,
+        sensor_name: Trilux (mesocosm 12), unit: µg/l}
+      Phycocy_Trilux_Avg(13): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_13,
+        sensor_name: Trilux (mesocosm 13), unit: µg/l}
+      Phycocy_Trilux_Avg(14): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_14,
+        sensor_name: Trilux (mesocosm 14), unit: µg/l}
+      Phycocy_Trilux_Avg(15): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_15,
+        sensor_name: Trilux (mesocosm 15), unit: µg/l}
+      Phycocy_Trilux_Avg(16): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_16,
+        sensor_name: Trilux (mesocosm 16), unit: µg/l}
+      Phycocy_Trilux_Avg(2): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_2,
+        sensor_name: Trilux (mesocosm 2), unit: µg/l}
+      Phycocy_Trilux_Avg(3): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_3,
+        sensor_name: Trilux (mesocosm 3), unit: µg/l}
+      Phycocy_Trilux_Avg(4): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_4,
+        sensor_name: Trilux (mesocosm 4), unit: µg/l}
+      Phycocy_Trilux_Avg(5): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_5,
+        sensor_name: Trilux (mesocosm 5), unit: µg/l}
+      Phycocy_Trilux_Avg(6): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_6,
+        sensor_name: Trilux (mesocosm 6), unit: µg/l}
+      Phycocy_Trilux_Avg(7): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_7,
+        sensor_name: Trilux (mesocosm 7), unit: µg/l}
+      Phycocy_Trilux_Avg(8): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_8,
+        sensor_name: Trilux (mesocosm 8), unit: µg/l}
+      Phycocy_Trilux_Avg(9): {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_meso_9,
+        sensor_name: Trilux (mesocosm 9), unit: µg/l}
+      Phycocy_Trilux_lake_Avg: {parameter_id: phycocyanin, sensor_id: sites_aquanet_erken_trilux_lake,
+        sensor_name: Trilux (lake), unit: µg/l}
+      Temp_optode_Avg(1): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_1,
+        sensor_name: Optode (mesocosm 1), unit: °C}
+      Temp_optode_Avg(10): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_10,
+        sensor_name: Optode (mesocosm 10), unit: °C}
+      Temp_optode_Avg(11): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_11,
+        sensor_name: Optode (mesocosm 11), unit: °C}
+      Temp_optode_Avg(12): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_12,
+        sensor_name: Optode (mesocosm 12), unit: °C}
+      Temp_optode_Avg(13): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_13,
+        sensor_name: Optode (mesocosm 13), unit: °C}
+      Temp_optode_Avg(14): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_14,
+        sensor_name: Optode (mesocosm 14), unit: °C}
+      Temp_optode_Avg(15): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_15,
+        sensor_name: Optode (mesocosm 15), unit: °C}
+      Temp_optode_Avg(16): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_16,
+        sensor_name: Optode (mesocosm 16), unit: °C}
+      Temp_optode_Avg(2): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_2,
+        sensor_name: Optode (mesocosm 2), unit: °C}
+      Temp_optode_Avg(3): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_3,
+        sensor_name: Optode (mesocosm 3), unit: °C}
+      Temp_optode_Avg(4): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_4,
+        sensor_name: Optode (mesocosm 4), unit: °C}
+      Temp_optode_Avg(5): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_5,
+        sensor_name: Optode (mesocosm 5), unit: °C}
+      Temp_optode_Avg(6): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_6,
+        sensor_name: Optode (mesocosm 6), unit: °C}
+      Temp_optode_Avg(7): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_7,
+        sensor_name: Optode (mesocosm 7), unit: °C}
+      Temp_optode_Avg(8): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_8,
+        sensor_name: Optode (mesocosm 8), unit: °C}
+      Temp_optode_Avg(9): {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_meso_9,
+        sensor_name: Optode (mesocosm 9), unit: °C}
+      Temp_optode_lake_Avg: {parameter_id: water_temperature, sensor_id: sites_aquanet_erken_optode_lake,
+        sensor_name: Optode (lake), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/sites_aquanet_erken/1_hour/sites_aquanet_erken_1_hour.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_single_status_parameters:
+    first_line_num: 215
+    header_row: 0
+    parameters:
+      Batt_volt_Min: {parameter_id: battery, sensor_id: sites_aquanet_erken_voltage_meter,
+        sensor_name: Voltage Meter, unit: V}
+    parse_time_columns: true
+    path: /home/erken/erken/sites_aquanet_erken/1_hour/sites_aquanet_erken_1_hour.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+stensta:
+  5_min_single_parameters:
+    first_line_num: 120547
+    header_row: 0
+    parameters:
+      C25uScm_1_AVG: {parameter_id: conductivity_at_25_degrees, sensor_id: stensta_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Ct_AVG: {parameter_id: conductivity, sensor_id: stensta_campbell_cs547a, sensor_name: Campbell
+          CS547A, unit: μS/cm)}
+      Depth_cm_AVG: {parameter_id: stage_height, sensor_id: stensta_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: cm)}
+      Discharge_AVG: {parameter_id: discharge, sensor_id: stensta_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: l/s)}
+      WTemp1_AVG: {parameter_id: water_temperature, sensor_id: stensta_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C)}
+      Wtemp2_AVG: {parameter_id: water_temperature, sensor_id: stensta_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: °C)}
+    parse_time_columns: true
+    path: /home/erken/erken/stensta/5_min/stensta_5_min.dat
+    table: single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_parameters:
+    first_line_num: 420
+    header_row: 0
+    parameters:
+      C25uScm_1_AVG: {parameter_id: conductivity_at_25_degrees, sensor_id: stensta_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Ct_AVG: {parameter_id: conductivity, sensor_id: stensta_campbell_cs547a, sensor_name: Campbell
+          CS547A, unit: μS/cm)}
+      Depth_cm_AVG: {parameter_id: stage_height, sensor_id: stensta_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: cm)}
+      Discharge_AVG: {parameter_id: discharge, sensor_id: stensta_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: l/s)}
+      WTemp1_AVG: {parameter_id: water_temperature, sensor_id: stensta_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C)}
+      Wtemp2_AVG: {parameter_id: water_temperature, sensor_id: stensta_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: °C)}
+    parse_time_columns: true
+    path: /home/erken/erken/stensta/24_hour/stensta_24_hour.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters:
+    first_line_num: 420
+    header_row: 0
+    parameters:
+      Battery_AVG: {parameter_id: battery, sensor_id: stensta_voltage_meter, sensor_name: Voltage
+          Meter, unit: V}
+      Ref_Temp_AVG: {parameter_id: panel_temperature, sensor_id: stensta_panel_thermometer,
+        sensor_name: Panel Thermometer, unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/stensta/24_hour_diagnostic/stensta_24_hour_diagnostic.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_single_parameters:
+    first_line_num: 10049
+    header_row: 0
+    parameters:
+      C25uScm_1_AVG: {parameter_id: conductivity_at_25_degrees, sensor_id: stensta_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: μS/cm)}
+      Ct_AVG: {parameter_id: conductivity, sensor_id: stensta_campbell_cs547a, sensor_name: Campbell
+          CS547A, unit: μS/cm)}
+      Depth_cm_AVG: {parameter_id: stage_height, sensor_id: stensta_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: cm)}
+      Discharge_AVG: {parameter_id: discharge, sensor_id: stensta_druck_pressure,
+        sensor_name: Druck Pressure Sensor, unit: l/s)}
+      WTemp1_AVG: {parameter_id: water_temperature, sensor_id: stensta_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C)}
+      Wtemp2_AVG: {parameter_id: water_temperature, sensor_id: stensta_campbell_cs547a,
+        sensor_name: Campbell CS547A, unit: °C)}
+    parse_time_columns: true
+    path: /home/erken/erken/stensta/1_hour/stensta_1_hour.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+water_temperature_chain:
+  5_min_profile:
+    first_line_num: 64546
+    header_row: 0
+    parameters:
+      Water_Temp_0.5m_Avg: {depth: 0.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_1.0m_AVG: {depth: 1.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_1.5m_AVG: {depth: 1.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_10.0m_AVG: {depth: 10.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_10.5m_AVG: {depth: 10.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_11.0m_AVG: {depth: 11.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_11.5m_AVG: {depth: 11.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_12.0m_AVG: {depth: 12.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_12.5m_AVG: {depth: 12.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_13.0m_AVG: {depth: 13.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_13.5m_AVG: {depth: 13.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_14.0m_AVG: {depth: 14.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_14.5m_AVG: {depth: 14.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_15.0m_AVG: {depth: 15.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_2.0m_AVG: {depth: 2.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_2.5m_AVG: {depth: 2.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_3.0m_AVG: {depth: 3.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_3.5m_AVG: {depth: 3.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_4.0m_AVG: {depth: 4.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_4.5m_AVG: {depth: 4.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_5.0m_AVG: {depth: 5.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_5.5m_AVG: {depth: 5.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_6.0m_AVG: {depth: 6.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_6.5m_AVG: {depth: 6.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_7.0m_AVG: {depth: 7.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_7.5m_AVG: {depth: 7.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_8.0m_AVG: {depth: 8.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_8.5m_AVG: {depth: 8.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_9.0m_AVG: {depth: 9.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      Water_Temp_9.5m_AVG: {depth: 9.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/water_temperature_chain/5_min/water_temperature_chain_5_min.dat
+    source: parameters
     table: profile_measurements_by_station
     time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_single_status_parameters:
+    first_line_num: 226
+    header_row: 0
+    parameters:
+      BattV_Avg: {parameter_id: battery, sensor_id: water_temperature_chain_voltage_meter,
+        sensor_name: Voltage Meter, unit: V}
+    parse_time_columns: true
+    path: /home/erken/erken/water_temperature_chain/24_hour_diagnostic/water_temperature_chain_24_hour_diagnostic.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+water_temperature_chain_underwater_system:
+  5_min_profile:
+    first_line_num: 2810
+    header_row: 0
+    parameters:
+      WTemp10_00_Avg: {depth: 10.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp10_50_Avg: {depth: 10.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp11_00_Avg: {depth: 11.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp11_50_Avg: {depth: 11.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_00_Avg: {depth: 12.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_50_Avg: {depth: 12.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_75_Avg: {depth: 12.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_00_Avg: {depth: 13.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_25_Avg: {depth: 13.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_50_Avg: {depth: 13.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_75_Avg: {depth: 13.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_00_Avg: {depth: 14.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_25_Avg: {depth: 14.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_50_Avg: {depth: 14.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_75_Avg: {depth: 14.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_00_Avg: {depth: 15.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_25_Avg: {depth: 15.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_50_Avg: {depth: 15.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_00_Avg: {depth: 1.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_25_Avg: {depth: 1.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_50_Avg: {depth: 1.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_75_Avg: {depth: 1.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_00_Avg: {depth: 2.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_25_Avg: {depth: 2.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_50_Avg: {depth: 2.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_75_Avg: {depth: 2.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_00_Avg: {depth: 3.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_25_Avg: {depth: 3.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_50_Avg: {depth: 3.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_75_Avg: {depth: 3.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_00_Avg: {depth: 4.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_25_Avg: {depth: 4.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_50_Avg: {depth: 4.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_75_Avg: {depth: 4.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_00_Avg: {depth: 5.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_25_Avg: {depth: 5.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_50_Avg: {depth: 5.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_75_Avg: {depth: 5.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_00_Avg: {depth: 6.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_25_Avg: {depth: 6.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_50_Avg: {depth: 6.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_75_Avg: {depth: 6.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_00_Avg: {depth: 7.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_25_Avg: {depth: 7.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_50_Avg: {depth: 7.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_75_Avg: {depth: 7.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp8_00_Avg: {depth: 8.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp8_50_Avg: {depth: 8.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp9_00_Avg: {depth: 9.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp9_50_Avg: {depth: 9.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/water_temperature_chain_underwater_system/5_min/water_temperature_chain_underwater_system_5_min.dat
+    source: parameters
+    table: profile_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_profile:
+    first_line_num: 10
+    header_row: 0
+    parameters:
+      WTemp10_00_Avg: {depth: 10.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp10_50_Avg: {depth: 10.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp11_00_Avg: {depth: 11.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp11_50_Avg: {depth: 11.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_00_Avg: {depth: 12.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_50_Avg: {depth: 12.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_75_Avg: {depth: 12.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_00_Avg: {depth: 13.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_25_Avg: {depth: 13.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_50_Avg: {depth: 13.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_75_Avg: {depth: 13.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_00_Avg: {depth: 14.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_25_Avg: {depth: 14.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_50_Avg: {depth: 14.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_75_Avg: {depth: 14.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_00_Avg: {depth: 15.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_25_Avg: {depth: 15.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_50_Avg: {depth: 15.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_00_Avg: {depth: 1.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_25_Avg: {depth: 1.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_50_Avg: {depth: 1.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_75_Avg: {depth: 1.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_00_Avg: {depth: 2.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_25_Avg: {depth: 2.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_50_Avg: {depth: 2.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_75_Avg: {depth: 2.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_00_Avg: {depth: 3.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_25_Avg: {depth: 3.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_50_Avg: {depth: 3.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_75_Avg: {depth: 3.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_00_Avg: {depth: 4.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_25_Avg: {depth: 4.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_50_Avg: {depth: 4.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_75_Avg: {depth: 4.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_00_Avg: {depth: 5.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_25_Avg: {depth: 5.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_50_Avg: {depth: 5.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_75_Avg: {depth: 5.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_00_Avg: {depth: 6.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_25_Avg: {depth: 6.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_50_Avg: {depth: 6.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_75_Avg: {depth: 6.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_00_Avg: {depth: 7.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_25_Avg: {depth: 7.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_50_Avg: {depth: 7.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_75_Avg: {depth: 7.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp8_00_Avg: {depth: 8.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp8_50_Avg: {depth: 8.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp9_00_Avg: {depth: 9.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp9_50_Avg: {depth: 9.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/water_temperature_chain_underwater_system/24_hour/water_temperature_chain_underwater_system_24_hour.dat
+    source: parameters
+    table: daily_profile_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_profile:
+    first_line_num: 235
+    header_row: 0
+    parameters:
+      WTemp10_00_Avg: {depth: 10.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp10_50_Avg: {depth: 10.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp11_00_Avg: {depth: 11.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp11_50_Avg: {depth: 11.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_00_Avg: {depth: 12.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_50_Avg: {depth: 12.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp12_75_Avg: {depth: 12.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_00_Avg: {depth: 13.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_25_Avg: {depth: 13.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_50_Avg: {depth: 13.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp13_75_Avg: {depth: 13.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_00_Avg: {depth: 14.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_25_Avg: {depth: 14.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_50_Avg: {depth: 14.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp14_75_Avg: {depth: 14.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_00_Avg: {depth: 15.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_25_Avg: {depth: 15.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp15_50_Avg: {depth: 15.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_00_Avg: {depth: 1.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_25_Avg: {depth: 1.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_50_Avg: {depth: 1.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp1_75_Avg: {depth: 1.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_00_Avg: {depth: 2.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_25_Avg: {depth: 2.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_50_Avg: {depth: 2.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp2_75_Avg: {depth: 2.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_00_Avg: {depth: 3.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_25_Avg: {depth: 3.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_50_Avg: {depth: 3.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp3_75_Avg: {depth: 3.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_00_Avg: {depth: 4.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_25_Avg: {depth: 4.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_50_Avg: {depth: 4.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp4_75_Avg: {depth: 4.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_00_Avg: {depth: 5.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_25_Avg: {depth: 5.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_50_Avg: {depth: 5.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp5_75_Avg: {depth: 5.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_00_Avg: {depth: 6.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_25_Avg: {depth: 6.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_50_Avg: {depth: 6.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp6_75_Avg: {depth: 6.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_00_Avg: {depth: 7.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_25_Avg: {depth: 7.25, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_50_Avg: {depth: 7.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp7_75_Avg: {depth: 7.75, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp8_00_Avg: {depth: 8.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp8_50_Avg: {depth: 8.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp9_00_Avg: {depth: 9.0, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+      WTemp9_50_Avg: {depth: 9.5, parameter_id: water_temperature, sensor_id: water_temperature_chain_underwater_system_thermo_water,
+        sensor_name: Thermocouple (Water), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/water_temperature_chain_underwater_system/1_hour/water_temperature_chain_underwater_system_1_hour.dat
+    source: parameters
+    table: hourly_profile_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+ysi_profiler:
+  5_min_wind_parameters:
+    first_line_num: 63962
+    header_row: 0
+    parameters:
+      MeanWS: {parameter_id: wind_speed, sensor_id: malma_island_rm_young_wind_sentry_anemometer,
+        sensor_name: RM Young Wind Sentry Anemometer, unit: m/s}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: malma_island_rm_young_wind_sentry_anemometer,
+        sensor_name: RM Young Wind Sentry Anemometer, unit: null}
+    parse_time_columns: true
+    path: /home/erken/erken/ysi_profiler/5_min_wind/ysi_profiler_5_min_wind.dat
+    table: single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_wind_parameters:
+    first_line_num: 220
+    header_row: 0
+    parameters:
+      MeanWS: {parameter_id: wind_speed, sensor_id: malma_island_rm_young_wind_sentry_anemometer,
+        sensor_name: RM Young Wind Sentry Anemometer, unit: m/s}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: malma_island_rm_young_wind_sentry_anemometer,
+        sensor_name: RM Young Wind Sentry Anemometer, unit: null}
+    parse_time_columns: true
+    path: /home/erken/erken/ysi_profiler/24_hour_wind/ysi_profiler_24_hour_wind.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  daily_wind_single_status_parameters:
+    first_line_num: 988
+    header_row: 0
+    parameters:
+      BattV_Avg: {parameter_id: battery, sensor_id: ysi_profiler_wind_voltage_meter,
+        sensor_name: Voltage Meter (Wind Logger), unit: V}
+      PTemp_C_Avg: {parameter_id: panel_temperature, sensor_id: ysi_profiler_wind_panel_thermometer,
+        sensor_name: Panel Thermometer (Wind Logger), unit: °C}
+    parse_time_columns: true
+    path: /home/erken/erken/ysi_profiler/24_hour_wind_diagnostic/ysi_profiler_24_hour_wind_diagnostic.dat
+    table: daily_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_profile:
     depth_column: Vertical_Position_m
     depth_correction_factor: 0.25
+    first_line_num: 134294
+    header_row: 0
+    parameters:
+      BGA_PC_ug_l: {parameter_id: blue_green_algae_phycocyanin, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      Chl_ug_l: {parameter_id: chlorophyll, sensor_id: ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: µg/l}
+      ODO_mg_l: {parameter_id: dissolved_oxygen_mg_l, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mg/l}
+      ODO_percent: {parameter_id: dissolved_oxygen, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: '%'}
+      ORP_mV: {parameter_id: oxidation_reduction_potential, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mV}
+      Sp_Cond_uS_cm: {parameter_id: conductivity_at_25_degrees, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µS/cm}
+      Temp_c: {parameter_id: water_temperature, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: °C}
+      Turb_FNU: {parameter_id: turbidity, sensor_id: ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: FNU}
+      fDOM_QSU: {parameter_id: fdom, sensor_id: ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: QSU}
+      pH: {parameter_id: ph, sensor_id: ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: pH}
+    parse_time_columns: true
+    path: /home/erken/erken/ysi_profiler/1_hour_profile/ysi_profiler_1_hour_profile.dat
+    source: profiles
+    table: hourly_profile_measurements_by_station
+    time_columns: [TMSTAMP]
     time_format_args_library: ['%Y-%m-%d %H:%M:%S']
-    time_zone: Etc/GMT-1
-    to_utc: true
+    time_zone: UTC
+    to_utc: false
+  hourly_single_parameters:
+    first_line_num: 6244
+    header_row: 0
+    parameters:
+      BGA_PC_ug_l: {parameter_id: blue_green_algae_phycocyanin_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      Chl_ug_l: {parameter_id: chlorophyll_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µg/l}
+      ODO_mg_l: {parameter_id: dissolved_oxygen_mg_l_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mg/l}
+      ODO_percent: {parameter_id: dissolved_oxygen_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: '%'}
+      ORP_mV: {parameter_id: oxidation_reduction_potential_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: mV}
+      Sp_Cond_uS_cm: {parameter_id: conductivity_at_25_degrees_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: µS/cm}
+      Temp_c: {parameter_id: water_temperature_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: °C}
+      Turb_FNU: {parameter_id: turbidity_3_m, sensor_id: ysi_profiler_exo_2_sonde,
+        sensor_name: EXO 2 Sonde, unit: FNU}
+      fDOM_QSU: {parameter_id: fdom_3_m, sensor_id: ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: QSU}
+      pH: {parameter_id: ph_3_m, sensor_id: ysi_profiler_exo_2_sonde, sensor_name: EXO
+          2 Sonde, unit: pH}
+    parse_time_columns: true
+    path: /home/erken/erken/ysi_profiler/1_hour_park/ysi_profiler_1_hour_park.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false
+  hourly_wind_parameters:
+    first_line_num: 5329
+    header_row: 0
+    parameters:
+      MeanWS: {parameter_id: wind_speed, sensor_id: malma_island_rm_young_wind_sentry_anemometer,
+        sensor_name: RM Young Wind Sentry Anemometer, unit: m/s}
+      StdDevWindDir: {parameter_id: standard_deviation_of_wind_direction, sensor_id: malma_island_rm_young_wind_sentry_anemometer,
+        sensor_name: RM Young Wind Sentry Anemometer, unit: null}
+    parse_time_columns: true
+    path: /home/erken/erken/ysi_profiler/1_hour_wind/ysi_profiler_1_hour_wind.dat
+    table: hourly_single_parameter_measurements_by_station
+    time_columns: [TMSTAMP]
+    time_format_args_library: ['%Y-%m-%d %H:%M:%S']
+    time_zone: UTC
+    to_utc: false

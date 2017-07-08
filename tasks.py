@@ -47,8 +47,8 @@ def cassandra_init(**kwargs):
         log.info("Shutting down Cassandra session connection")
         session.shutdown()    
     log.info("Initializing Cassandra connection")
-    cluster = Cluster(['127.0.0.1'])
-    session = cluster.connect('hydroview_development')
+    cluster = Cluster(['85.24.137.186', '85.24.137.188', '85.24.137.189'])
+    session = cluster.connect('hydroview')
 
 @app.task
 def insert_to_daily_single_parameter_measurements_by_station(measurements):   

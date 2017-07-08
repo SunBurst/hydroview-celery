@@ -1,10 +1,14 @@
 amqp==2.1.4
+appdirs==1.4.3
 billiard==3.5.0.2
 CampbellSCIParser==0.38b0
 cassandra-driver==3.9.0
 celery==4.0.2
 kombu==4.0.2
+packaging==16.8
+pkg-resources==0.0.0
 py==1.4.31
+pyparsing==2.2.0
 pytest==3.0.3
 pytz==2016.7
 PyYAML==3.12
