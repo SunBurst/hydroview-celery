@@ -13,15 +13,34 @@ import pytz
 
 from campbellsciparser import cr
 
-from tasks import insert_to_daily_single_parameter_measurements_by_station
-from tasks import insert_to_single_parameter_measurements_by_station
-from tasks import insert_to_hourly_profile_measurements_by_station_time
-from tasks import insert_to_daily_profile_measurements_by_station_time
-from tasks import insert_to_hourly_single_parameter_measurements_by_station
-from tasks import insert_to_profile_measurements_by_station_time
-from tasks import insert_to_daily_parameter_group_measurements_by_station
-from tasks import insert_to_hourly_parameter_group_measurements_by_station
-from tasks import insert_to_parameter_group_measurements_by_station
+from tasks import insert_to_daily_single_measurements_by_station
+from tasks import insert_to_daily_single_measurements_by_station_query
+from tasks import insert_to_hourly_single_measurements_by_station_query
+from tasks import insert_to_thirty_min_single_measurements_by_station_query
+from tasks import insert_to_twenty_min_single_measurements_by_station_query
+from tasks import insert_to_fifteen_min_single_measurements_by_station_query
+from tasks import insert_to_ten_min_single_measurements_by_station_query
+from tasks import insert_to_five_min_single_measurements_by_station_query
+from tasks import insert_to_one_min_single_measurements_by_station_query
+from tasks import insert_to_one_sec_single_measurements_by_station_query
+from tasks import insert_to_daily_profile_measurements_by_station_query
+from tasks import insert_to_hourly_profile_measurements_by_station_query
+from tasks import insert_to_thirty_min_profile_measurements_by_station_query
+from tasks import insert_to_twenty_min_profile_measurements_by_station_query
+from tasks import insert_to_fifteen_min_profile_measurements_by_station_query
+from tasks import insert_to_ten_min_profile_measurements_by_station_query
+from tasks import insert_to_five_min_profile_measurements_by_station_query
+from tasks import insert_to_one_min_profile_measurements_by_station_query
+from tasks import insert_to_one_sec_profile_measurements_by_station_query
+from tasks import insert_to_daily_parameter_group_measurements_by_station_query
+from tasks import insert_to_hourly_parameter_group_measurements_by_station_query
+from tasks import insert_to_thirty_min_parameter_group_measurements_by_station_query
+from tasks import insert_to_twenty_min_parameter_group_measurements_by_station_query
+from tasks import insert_to_fifteen_min_parameter_group_measurements_by_station_query
+from tasks import insert_to_ten_min_parameter_group_measurements_by_station_query
+from tasks import insert_to_five_min_parameter_group_measurements_by_station_query
+from tasks import insert_to_one_min_parameter_group_measurements_by_station_query
+from tasks import insert_to_one_sec_parameter_group_measurements_by_station_query
 
 import utils
 
@@ -52,8 +71,8 @@ def process_daily_profile_measurements_by_station_profile_source(station, file):
     time_format_args_library = file.get('time_format_args_library')
     time_zone = file.get('time_zone')
     to_utc = file.get('to_utc')
-    depth_column = file.get('depth_column')
-    depth_correction_factor = file.get('depth_correction_factor')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
     time_columns = file.get('time_columns')        
     parse_time_columns = file.get('parse_time_columns')
     parameters = file.get('parameters')
@@ -66,19 +85,26 @@ def process_daily_profile_measurements_by_station_profile_source(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
-        param_data = cr.extract_columns_data(data, "timestamp", depth_column, param)
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             day = datetime.datetime(ts.year, ts.month, ts.day)
             year = int(day.strftime("%Y"))
-            depth = float(row.get(depth_column))
-            if depth_correction_factor is not None:
-                depth = utils.round_of_rating(depth, depth_correction_factor)
-            param_formatted_data.append((station, parameter_id, 0, year, int(day.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter_id, 0, year, int(day.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_daily_profile_measurements_by_station_time.delay(param_formatted_data)
+        insert_to_daily_profile_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
     
@@ -101,18 +127,24 @@ def process_daily_parameters_to_profile_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
-        depth = float(param_info.get('depth'))
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
         param_data = cr.extract_columns_data(data, "timestamp", param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             day = datetime.datetime(ts.year, ts.month, ts.day)
             year = int(day.strftime("%Y"))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(day.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
 
-            param_formatted_data.append((station, parameter_id, 0, year, int(day.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
-
-        insert_to_daily_profile_measurements_by_station_time.delay(param_formatted_data)
+        insert_to_daily_profile_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
 
@@ -133,8 +165,8 @@ def process_hourly_profile_measurements_by_station_profile_source(station, file)
     time_format_args_library = file.get('time_format_args_library')
     time_zone = file.get('time_zone')
     to_utc = file.get('to_utc')
-    depth_column = file.get('depth_column')
-    depth_correction_factor = file.get('depth_correction_factor')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
     time_columns = file.get('time_columns')        
     parse_time_columns = file.get('parse_time_columns')
     parameters = file.get('parameters')
@@ -147,20 +179,27 @@ def process_hourly_profile_measurements_by_station_profile_source(station, file)
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
-        param_data = cr.extract_columns_data(data, "timestamp", depth_column, param)
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             day = datetime.datetime(ts.year, ts.month, ts.day)
             year = int(day.strftime("%Y"))
-            hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, 0, 0)
-            depth = float(row.get(depth_column))
-            if depth_correction_factor is not None:
-                depth = utils.round_of_rating(depth, depth_correction_factor)
-            param_formatted_data.append((station, parameter_id, 0, year, int(hour.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+            hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            value_type = param_info.get('value_type')
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_hourly_profile_measurements_by_station_time.delay(param_formatted_data)
+        insert_to_hourly_profile_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
     
@@ -183,41 +222,47 @@ def process_hourly_parameters_to_profile_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
-        depth = float(param_info.get('depth'))
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
         param_data = cr.extract_columns_data(data, "timestamp", param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             day = datetime.datetime(ts.year, ts.month, ts.day)
             year = int(day.strftime("%Y"))
-            hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, 0, 0)
-            
-            param_formatted_data.append((station, parameter_id, 0, year, int(hour.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+            hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_hourly_profile_measurements_by_station_time.delay(param_formatted_data)
+        insert_to_hourly_profile_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
-        
-def process_profile_measurements_by_station(station, file):
+
+def process_thirty_min_profile_measurements_by_station(station, file):
     if file.get('source') == 'profiles':
-        num_of_new_rows = process_profile_measurements_by_station_profile_source(station, file)
+        num_of_new_rows = process_thirty_min_profile_measurements_by_station_profile_source(station, file)
     elif file.get('source') == 'parameters':
-        num_of_new_rows = process_parameters_to_profile_measurements_by_station(station, file)
+        num_of_new_rows = process_thirty_min_parameters_to_profile_measurements_by_station(station, file)
     else:
         raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
     
     return num_of_new_rows
 
-def process_profile_measurements_by_station_profile_source(station, file):
+def process_thirty_min_profile_measurements_by_station_profile_source(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
     time_format_args_library = file.get('time_format_args_library')
     time_zone = file.get('time_zone')
     to_utc = file.get('to_utc')
-    depth_column = file.get('depth_column')
-    depth_correction_factor = file.get('depth_correction_factor')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
     time_columns = file.get('time_columns')        
     parse_time_columns = file.get('parse_time_columns')
     parameters = file.get('parameters')
@@ -230,23 +275,406 @@ def process_profile_measurements_by_station_profile_source(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
-        param_data = cr.extract_columns_data(data, "timestamp", depth_column, param)
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
             profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
-            depth = float(row.get(depth_column))
-            if depth_correction_factor is not None:
-                depth = utils.round_of_rating(depth, depth_correction_factor)
-            param_formatted_data.append((station, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_profile_measurements_by_station_time.delay(param_formatted_data)
+        insert_to_thirty_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_thirty_min_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_thirty_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_twenty_min_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_twenty_min_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_twenty_min_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_twenty_min_profile_measurements_by_station_profile_source(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_twenty_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_twenty_min_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_twenty_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_fifteen_min_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_fifteen_min_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_fifteen_min_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_fifteen_min_profile_measurements_by_station_profile_source(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_fifteen_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_fifteen_min_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_fifteen_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_ten_min_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_ten_min_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_ten_min_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_ten_min_profile_measurements_by_station_profile_source(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_ten_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_ten_min_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_ten_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_five_min_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_five_min_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_five_min_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_five_min_profile_measurements_by_station_profile_source(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_five_min_profile_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
     
-def process_parameters_to_profile_measurements_by_station(station, file):
+def process_five_min_parameters_to_profile_measurements_by_station(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -265,22 +693,218 @@ def process_parameters_to_profile_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
-        depth = float(param_info.get('depth'))
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
         param_data = cr.extract_columns_data(data, "timestamp", param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
             profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, sensor_id, min_value, avg_value, max_value, unit))
 
-            param_formatted_data.append((station, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, sensor_name, sensor_id, float(row.get(param)), unit))
-
-        insert_to_profile_measurements_by_station_time.delay(param_formatted_data)
+        insert_to_five_min_profile_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
 
-def process_daily_single_parameter_measurements_by_station(station, file):
+def process_one_min_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_one_min_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_one_min_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_one_min_profile_measurements_by_station_profile_source(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            year, week_number, weekday = ts.isocalendar()
+            week_first_day = (datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, week_first_day, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_one_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_one_min_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            year, week_number, weekday = ts.isocalendar()
+            week_first_day = (datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, week_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_one_min_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_one_sec_profile_measurements_by_station(station, file):
+    if file.get('source') == 'profiles':
+        num_of_new_rows = process_one_sec_profile_measurements_by_station_profile_source(station, file)
+    elif file.get('source') == 'parameters':
+        num_of_new_rows = process_one_sec_parameters_to_profile_measurements_by_station(station, file)
+    else:
+        raise TypeError("source must be either profiles or parameters, got {}".format(file.get('source')))
+    
+    return num_of_new_rows
+
+def process_one_sec_profile_measurements_by_station_profile_source(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    vertical_position_column = file.get('vertical_position_column')
+    vertical_position_correction_factor = file.get('vertical_position_correction_factor')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", vertical_position_column, param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            date_dt = datetime.datetime(ts.year, ts.month, ts.day).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            vertical_position = float(row.get(vertical_position_column))
+            if vertical_position_correction_factor is not None:
+                vertical_position = utils.round_of_rating(vertical_position, vertical_position_correction_factor)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, date_dt, int(hour.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_one_sec_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_one_sec_parameters_to_profile_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    time_columns = file.get('time_columns')
+    to_utc = file.get('to_utc')
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+    logger_debug.debug(file)
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        vertical_position = float(param_info.get('vertical_position'))
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            date_dt = datetime.datetime(ts.year, ts.month, ts.day).strftime("%Y-%m-%d")
+            profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, date_dt, int(profile_ts.timestamp()) * 1e3, vertical_position, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_one_sec_profile_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_daily_single_measurements_by_station(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -299,20 +923,27 @@ def process_daily_single_parameter_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
+        value_type = param_info.get('value_type')
         param_data = cr.extract_columns_data(data, "timestamp", param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             day = datetime.datetime(ts.year, ts.month, ts.day)
             year = int(day.strftime("%Y"))
-            param_formatted_data.append((station, parameter_id, 0, year, int(day.timestamp()) * 1e3, sensor_name, sensor_id, float(row.get(param)), unit))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(day.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_daily_single_parameter_measurements_by_station.delay(param_formatted_data)
+        insert_to_daily_single_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
 
-def process_single_parameter_measurements_by_station(station, file):
+def process_hourly_single_measurements_by_station(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -331,19 +962,143 @@ def process_single_parameter_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            day = datetime.datetime(ts.year, ts.month, ts.day)
+            year = int(day.strftime("%Y"))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_hourly_single_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+    
+def process_twenty_min_single_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            day = datetime.datetime(ts.year, ts.month, ts.day)
+            year = int(day.strftime("%Y"))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_thirty_min_single_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_twenty_min_single_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            day = datetime.datetime(ts.year, ts.month, ts.day)
+            year = int(day.strftime("%Y"))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, year, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_twenty_min_single_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_fifteen_min_single_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
         param_data = cr.extract_columns_data(data, "timestamp", param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
             month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
-            param_formatted_data.append((station, parameter_id, 0, month_first_day, int(ts.timestamp()) * 1e3, sensor_name, sensor_id, float(row.get(param)), unit))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter, 0, month_first_day, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_single_parameter_measurements_by_station.delay(param_formatted_data)
+        insert_to_fifteen_min_single_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
 
-def process_hourly_single_parameter_measurements_by_station(station, file):
+def process_ten_min_single_measurements_by_station(station, file):
     path=file.get('path')
     header_row=file.get('header_row')
     first_line_num = file.get('first_line_num', 0)
@@ -362,16 +1117,137 @@ def process_hourly_single_parameter_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         unit = param_info.get('unit')
         sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
+        value_type = param_info.get('value_type')
         param_data = cr.extract_columns_data(data, "timestamp", param)
         param_formatted_data = []
         for row in param_data:
             ts = row.get('timestamp')
-            day = datetime.datetime(ts.year, ts.month, ts.day)
-            year = int(day.strftime("%Y"))
-            param_formatted_data.append((station, parameter_id, 0, year, int(ts.timestamp()) * 1e3, sensor_name, sensor_id, float(row.get(param)), unit))
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter_id, 0, month_first_day, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
 
-        insert_to_hourly_single_parameter_measurements_by_station.delay(param_formatted_data)
+        insert_to_ten_min_single_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_five_min_single_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter_id, 0, month_first_day, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_five_min_single_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+
+def process_one_min_single_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            year, week_number, weekday = ts.isocalendar()
+            week_first_day = (datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter_id, 0, week_first_day, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_one_min_single_measurements_by_station.delay(param_formatted_data)
+ 
+    return num_of_new_rows
+    
+def process_one_sec_single_measurements_by_station(station, file):
+    path=file.get('path')
+    header_row=file.get('header_row')
+    first_line_num = file.get('first_line_num', 0)
+    time_format_args_library = file.get('time_format_args_library')
+    time_zone = file.get('time_zone')
+    to_utc = file.get('to_utc')
+    time_columns = file.get('time_columns')        
+    parse_time_columns = file.get('parse_time_columns')
+    parameters = file.get('parameters')
+
+    data = cr.read_table_data(infile_path=path, header_row=header_row, first_line_num=first_line_num, parse_time_columns=parse_time_columns, time_zone=time_zone, time_format_args_library=time_format_args_library, time_parsed_column="timestamp", time_columns=time_columns, to_utc=to_utc)
+
+    num_of_new_rows = len(data)
+
+    for param, param_info in parameters.items():
+        parameter_id = param_info.get('parameter_id')
+        unit = param_info.get('unit')
+        sensor_id = param_info.get('sensor_id')
+        value_type = param_info.get('value_type')
+        param_data = cr.extract_columns_data(data, "timestamp", param)
+        param_formatted_data = []
+        for row in param_data:
+            ts = row.get('timestamp')
+            date_dt = datetime.datetime(ts.year, ts.month, ts.day).strftime("%Y-%m-%d")
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            param_formatted_data.append((station, parameter_id, 0, date_dt, int(ts.timestamp()) * 1e3, sensor_id, min_value, avg_value, max_value, unit))
+
+        insert_to_one_sec_single_measurements_by_station.delay(param_formatted_data)
  
     return num_of_new_rows
 
@@ -395,17 +1271,22 @@ def process_daily_parameter_group_measurements_by_station(station, file):
     
     for param, param_info in parameters.items():
         parameter_id = param_info.get('parameter_id')
-        parameter_name = param_info.get('parameter_name')
         unit = param_info.get('unit')
-        sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
+        value_type = param_info.get('value_type')
         param_data = cr.extract_columns_data(data, "timestamp", param)
         
         for row in param_data:
             ts = row.get('timestamp')
             day = datetime.datetime(ts.year, ts.month, ts.day)
             year = int(day.strftime("%Y"))
-            parameter_group_formatted_data.append((station, group_id, 0, year, int(day.timestamp()) * 1e3, parameter_name, sensor_name, parameter_id, sensor_id, float(row.get(param)), unit))
+            min_value, avg_value, max_value = None
+            if value_type == 'min_value':
+                min_value = float(row.get(param))
+            elif value_type == 'avg_value':
+                avg_value = float(row.get(param))
+            elif value_type == 'max_value':
+                max_value = float(row.get(param))
+            parameter_group_formatted_data.append((station, group_id, 0, year, int(day.timestamp()) * 1e3, parameter_id, min_value, avg_value, max_value, unit))
     
     insert_to_daily_parameter_group_measurements_by_station.delay(parameter_group_formatted_data)
  
@@ -433,21 +1314,21 @@ def process_hourly_parameter_group_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         parameter_name = param_info.get('parameter_name')
         unit = param_info.get('unit')
-        sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
+        #sensor_id = param_info.get('sensor_id')
+        #
         param_data = cr.extract_columns_data(data, "timestamp", param)
         
         for row in param_data:
             ts = row.get('timestamp')
             day_hour = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute)
             year = int(day_hour.strftime("%Y"))
-            parameter_group_formatted_data.append((station, group_id, 0, year, int(day_hour.timestamp()) * 1e3, parameter_name, sensor_name, parameter_id, sensor_id, float(row.get(param)), unit))
+            parameter_group_formatted_data.append((station, group_id, 0, year, int(day_hour.timestamp()) * 1e3, parameter_name, parameter, float(row.get(param)), unit))
     
     insert_to_hourly_parameter_group_measurements_by_station.delay(parameter_group_formatted_data)
  
     return num_of_new_rows
     
-def process_parameter_group_measurements_by_station(station, file):
+def process_five_min_parameter_group_measurements_by_station(station, file):
     path = file.get('path')
     group_id = file.get('group_id')
     header_row = file.get('header_row')
@@ -469,39 +1350,75 @@ def process_parameter_group_measurements_by_station(station, file):
         parameter_id = param_info.get('parameter_id')
         parameter_name = param_info.get('parameter_name')
         unit = param_info.get('unit')
-        sensor_id = param_info.get('sensor_id')
-        sensor_name = param_info.get('sensor_name')
+        #sensor_id = param_info.get('sensor_id')
+        #
         param_data = cr.extract_columns_data(data, "timestamp", param)
         
         for row in param_data:
             ts = row.get('timestamp')
             month_first_day = datetime.datetime(ts.year, ts.month, 1).strftime("%Y-%m-%d")
-            parameter_group_formatted_data.append((station, group_id, 0, month_first_day, int(ts.timestamp()) * 1e3, parameter_name, sensor_name, parameter_id, sensor_id, float(row.get(param)), unit))
+            parameter_group_formatted_data.append((station, group_id, 0, month_first_day, int(ts.timestamp()) * 1e3, parameter_name, parameter, float(row.get(param)), unit))
     
-    insert_to_parameter_group_measurements_by_station.delay(parameter_group_formatted_data)
+    insert_to_five_min_parameter_group_measurements_by_station.delay(parameter_group_formatted_data)
  
     return num_of_new_rows
 
 def run_update(config_file, args):
     file = config_file[args.station][args.file]
-    if (file.get('table') == 'daily_single_parameter_measurements_by_station'):
-        num_of_new_rows = process_daily_single_parameter_measurements_by_station(args.station, file)
-    elif (file.get('table') == 'single_parameter_measurements_by_station'):
-        num_of_new_rows = process_single_parameter_measurements_by_station(args.station, file)
-    elif (file.get('table') == 'hourly_single_parameter_measurements_by_station'):
-        num_of_new_rows = process_hourly_single_parameter_measurements_by_station(args.station, file)
+    if (file.get('table') == 'daily_single_measurements_by_station'):
+        num_of_new_rows = process_daily_single_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'hourly_single_measurements_by_station'):
+        num_of_new_rows = process_hourly_single_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'thirty_min_single_measurements_by_station'):
+        num_of_new_rows = process_thirty_min_single_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'twenty_min_single_measurements_by_station'):
+        num_of_new_rows = process_twenty_min_single_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'fifteen_min_single_measurements_by_station'):
+        num_of_new_rows = process_fifteen_min_single_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'ten_min_single_measurements_by_station'):
+        num_of_new_rows = process_ten_min_single_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'five_min_single_measurements_by_station'):
+        num_of_new_rows = process_five_min_single_measurements_by_station(args.station, file)    
+    elif (file.get('table') == 'one_min_single_measurements_by_station'):
+        num_of_new_rows = process_one_min_single_measurements_by_station(args.station, file)    
+    elif (file.get('table') == 'one_sec_single_measurements_by_station'):
+        num_of_new_rows = process_one_sec_single_measurements_by_station(args.station, file)   
     elif (file.get('table') == 'daily_profile_measurements_by_station'):
         num_of_new_rows = process_daily_profile_measurements_by_station(args.station, file)
     elif (file.get('table') == 'hourly_profile_measurements_by_station'):
         num_of_new_rows = process_hourly_profile_measurements_by_station(args.station, file)
-    elif (file.get('table') == 'profile_measurements_by_station'):
-        num_of_new_rows = process_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'thirty_min_profile_measurements_by_station'):
+        num_of_new_rows = process_thirty_min_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'twenty_min_profile_measurements_by_station'):
+        num_of_new_rows = process_twenty_min_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'fifteen_profile_measurements_by_station'):
+        num_of_new_rows = process_fifteen_min_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'ten_profile_measurements_by_station'):
+        num_of_new_rows = process_ten_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'five_min_profile_measurements_by_station'):
+        num_of_new_rows = process_five_min_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'one_min_profile_measurements_by_station'):
+        num_of_new_rows = process_one_min_profile_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'one_sec_profile_measurements_by_station'):
+        num_of_new_rows = process_one_sec_profile_measurements_by_station(args.station, file)
     elif (file.get('table') == 'daily_parameter_group_measurements_by_station'):
         num_of_new_rows = process_daily_parameter_group_measurements_by_station(args.station, file)
     elif (file.get('table') == 'hourly_parameter_group_measurements_by_station'):
         num_of_new_rows = process_hourly_parameter_group_measurements_by_station(args.station, file)
-    elif (file.get('table') == 'parameter_group_measurements_by_station'):
-        num_of_new_rows = process_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'thirty_min_group_measurements_by_station'):
+        num_of_new_rows = process_thirty_min_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'twenty_min_group_measurements_by_station'):
+        num_of_new_rows = process_twenty_min_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'fifteen_min_group_measurements_by_station'):
+        num_of_new_rows = process_fifteen_min_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'ten_min_group_measurements_by_station'):
+        num_of_new_rows = process_ten_min_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'five_min_group_measurements_by_station'):
+        num_of_new_rows = process_five_min_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'one_min_group_measurements_by_station'):
+        num_of_new_rows = process_one_min_parameter_group_measurements_by_station(args.station, file)
+    elif (file.get('table') == 'one_sec_group_measurements_by_station'):
+        num_of_new_rows = process_one_sec_parameter_group_measurements_by_station(args.station, file)
         
     if args.track:
         if num_of_new_rows > 0:
@@ -519,7 +1436,7 @@ def run_update(config_file, args):
 def main():
     """Parses and validates arguments from the command line. """
     parser = argparse.ArgumentParser(
-        prog='LoggerFilesFormatter',
+        prog='CassandraFormatter',
         description='Program for formatting and storing logger data to Cassandra database.'
     )
     parser.add_argument('-s', '--station', action='store', dest='station',

@@ -13,12 +13,22 @@ handlers:
         class : logging.FileHandler
         formatter: simple
         level: DEBUG
-        filename: '/home/erken/hydroview-celery/logs/cassandra_storage_debug.log'
+        filename: '/home/marcus/hydroview-celery/logs/cassandra_storage_debug.log'
     file_cassandra_storage_info:
         class : logging.FileHandler
         formatter: simple
         level: INFO
-        filename: '/home/erken/hydroview-celery/logs/cassandra_storage_info.log'
+        filename: '/home/marcus/hydroview-celery/logs/cassandra_storage_info.log'
+    file_cassandra_webcam_photos_storage_debug:
+        class : logging.FileHandler
+        formatter: simple
+        level: DEBUG
+        filename: '/home/marcus/hydroview-celery/logs/cassandra_webcam_photos_storage_debug.log'
+    file_cassandra_webcam_photos_storage_info:
+        class : logging.FileHandler
+        formatter: simple
+        level: INFO
+        filename: '/home/marcus/hydroview-celery/logs/cassandra_webcam_photos_storage_info.log'
 loggers:
     cassandra_storage_debug:
         level: DEBUG
@@ -26,6 +36,12 @@ loggers:
     cassandra_storage_info:
         level: INFO
         handlers: [console, file_cassandra_storage_info]
+    cassandra_webcam_photos_storage_debug:
+        level: DEBUG
+        handlers: [console, file_cassandra_webcam_photos_storage_debug]
+    cassandra_webcam_photos_storage_info:
+        level: INFO
+        handlers: [console, file_cassandra_webcam_photos_storage_info]
 root:
     handlers: [console]
     level: NOTSET
