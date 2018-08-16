@@ -1,10 +1,13 @@
 import logging
 import signal
 import uuid
+
 from celery import Celery
 from celery import platforms
 from celery.signals import beat_init
 from celery.signals import worker_process_init, worker_shutdown, worker_process_shutdown
+
+from cassandra import ConsistencyLevel
 from cassandra.cluster import Cluster
 from cassandra.concurrent import execute_concurrent_with_args
 
@@ -67,9 +70,11 @@ def cassandra_init(**kwargs):
         log.info("Shutting down Cassandra session connection")
         session.shutdown()    
     log.info("Initializing Cassandra connection")
-    cluster = Cluster(['127.0.0.1'])
-    session = cluster.connect('hydroview_development')
-    session.default_consistency_level = 4
+    cluster = Cluster([
+        '192.168.50.10','192.168.50.11'
+    ])
+    session = cluster.connect('hydroview')
+    session.default_consistency_level = ConsistencyLevel.LOCAL_QUORUM
 
 @app.task
 def insert_to_daily_single_measurements_by_station(measurements):   
