@@ -79,7 +79,6 @@ def insert_to_daily_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
     execute_concurrent_with_args(session, insert_to_daily_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -94,7 +93,7 @@ def insert_to_hourly_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_hourly_single_measurements_by_sensor_query, measurements, concurrency=50)
     
 @app.task
@@ -109,7 +108,7 @@ def insert_to_thirty_min_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_thirty_min_single_measurements_by_sensor_query, measurements, concurrency=50)
     
 @app.task
@@ -124,7 +123,7 @@ def insert_to_twenty_min_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_twenty_min_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -139,7 +138,7 @@ def insert_to_fifteen_min_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_fifteen_min_single_measurements_by_sensor_query, concurrency=50)
 
 @app.task
@@ -154,7 +153,7 @@ def insert_to_ten_min_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_ten_min_single_measurements_by_sensor_query, concurrency=50)
 
 @app.task
@@ -169,7 +168,7 @@ def insert_to_five_min_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_five_min_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -184,7 +183,7 @@ def insert_to_one_min_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_one_min_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -199,7 +198,7 @@ def insert_to_one_sec_single_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[5] = uuid.UUID(row[5])
+        
     execute_concurrent_with_args(session, insert_to_one_sec_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -214,7 +213,7 @@ def insert_to_daily_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+    print(measurements)    
     execute_concurrent_with_args(session, insert_to_daily_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -229,7 +228,7 @@ def insert_to_hourly_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_hourly_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -243,7 +242,7 @@ def insert_to_thirty_min_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_thirty_min_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -258,7 +257,7 @@ def insert_to_twenty_min_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_twenty_min_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -273,7 +272,7 @@ def insert_to_fifteen_min_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_fifteen_min_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -299,7 +298,7 @@ def insert_to_five_min_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_five_min_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -314,7 +313,7 @@ def insert_to_one_min_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_one_min_profile_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
@@ -329,7 +328,7 @@ def insert_to_one_sec_profile_measurements_by_sensor(measurements):
     for row in measurements:
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
-        row[6] = uuid.UUID(row[6])
+        
     execute_concurrent_with_args(session, insert_to_one_sec_profile_measurements_by_sensor_query, measurements, concurrency=50)
     
 @app.task
