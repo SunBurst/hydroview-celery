@@ -712,7 +712,7 @@ def process_five_min_parameters_to_profile_measurements_by_sensor(station, file)
                 avg_value = float(row.get(param))
             elif value_type == 'max_value':
                 max_value = float(row.get(param))
-            param_formatted_data.append((sensor_id, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, min_value, avg_value, max_value, unit))
+            param_formatted_data.append((sensor_id, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, min_value, avg_value, max_value, unit))
 
         insert_to_five_min_profile_measurements_by_sensor.delay(param_formatted_data)
  
@@ -1226,9 +1226,9 @@ def process_one_min_single_measurements_by_sensor(station, file):
             param_formatted_data.append((sensor_id, parameter_id, 0, week_first_day, int(ts.timestamp()) * 1e3, min_value, avg_value, max_value, unit))
 
         insert_to_one_min_single_measurements_by_sensor.delay(param_formatted_data)
- 
+
     return num_of_new_rows
-    
+
 def process_one_sec_single_measurements_by_sensor(station, file):
     path=file.get('path')
     #sensor_id = file.get('sensor_id')
@@ -1237,7 +1237,7 @@ def process_one_sec_single_measurements_by_sensor(station, file):
     time_format_args_library = file.get('time_format_args_library')
     time_zone = file.get('time_zone')
     to_utc = file.get('to_utc')
-    time_columns = file.get('time_columns')        
+    time_columns = file.get('time_columns')
     parse_time_columns = file.get('parse_time_columns')
     parameters = file.get('parameters')
 
@@ -1265,54 +1265,55 @@ def process_one_sec_single_measurements_by_sensor(station, file):
             param_formatted_data.append((sensor_id, parameter_id, 0, date_dt, int(ts.timestamp()) * 1e3, min_value, avg_value, max_value, unit))
 
         insert_to_one_sec_single_measurements_by_sensor.delay(param_formatted_data)
- 
+
     return num_of_new_rows
 
 def run_update(config_file, args):
-    file = config_file[args.sensor][args.file]
+    file = config_file[args.station][args.file]
+    num_of_new_rows = 0
     if (file.get('table') == 'daily_single_measurements_by_sensor'):
-        num_of_new_rows = process_daily_single_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_daily_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'hourly_single_measurements_by_sensor'):
-        num_of_new_rows = process_hourly_single_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_hourly_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'thirty_min_single_measurements_by_sensor'):
-        num_of_new_rows = process_thirty_min_single_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_thirty_min_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'twenty_min_single_measurements_by_sensor'):
-        num_of_new_rows = process_twenty_min_single_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_twenty_min_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'fifteen_min_single_measurements_by_sensor'):
-        num_of_new_rows = process_fifteen_min_single_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_fifteen_min_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'ten_min_single_measurements_by_sensor'):
-        num_of_new_rows = process_ten_min_single_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_ten_min_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'five_min_single_measurements_by_sensor'):
-        num_of_new_rows = process_five_min_single_measurements_by_sensor(args.sensor, file)    
+        num_of_new_rows = process_five_min_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'one_min_single_measurements_by_sensor'):
-        num_of_new_rows = process_one_min_single_measurements_by_sensor(args.sensor, file)    
+        num_of_new_rows = process_one_min_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'one_sec_single_measurements_by_sensor'):
-        num_of_new_rows = process_one_sec_single_measurements_by_sensor(args.sensor, file)   
+        num_of_new_rows = process_one_sec_single_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'daily_profile_measurements_by_sensor'):
-        num_of_new_rows = process_daily_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_daily_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'hourly_profile_measurements_by_sensor'):
-        num_of_new_rows = process_hourly_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_hourly_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'thirty_min_profile_measurements_by_sensor'):
-        num_of_new_rows = process_thirty_min_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_thirty_min_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'twenty_min_profile_measurements_by_sensor'):
-        num_of_new_rows = process_twenty_min_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_twenty_min_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'fifteen_profile_measurements_by_sensor'):
-        num_of_new_rows = process_fifteen_min_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_fifteen_min_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'ten_profile_measurements_by_sensor'):
-        num_of_new_rows = process_ten_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_ten_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'five_min_profile_measurements_by_sensor'):
-        num_of_new_rows = process_five_min_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_five_min_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'one_min_profile_measurements_by_sensor'):
-        num_of_new_rows = process_one_min_profile_measurements_by_sensor(args.sensor, file)
+        num_of_new_rows = process_one_min_profile_measurements_by_sensor(args.station, file)
     elif (file.get('table') == 'one_sec_profile_measurements_by_sensor'):
-        num_of_new_rows = process_one_sec_profile_measurements_by_sensor(args.sensor, file)
-        
+        num_of_new_rows = process_one_sec_profile_measurements_by_sensor(args.station, file)
+
     if args.track:
         if num_of_new_rows > 0:
             first_line_num = file.get('first_line_num', 0)
             new_line_num = first_line_num + num_of_new_rows
             logger_info.info("Updated up to line number {num}".format(num=new_line_num))
-            config_file[args.sensor][args.file]['first_line_num'] = new_line_num
+            config_file[args.station][args.file]['first_line_num'] = new_line_num
 
     logger_info.info("Done processing table {table}".format(table=file.get('table')))
 
@@ -1326,7 +1327,7 @@ def main():
         prog='CassandraFormatter',
         description='Program for formatting and storing logger data to Cassandra database.'
     )
-    parser.add_argument('-s', '--sensor', action='store', dest='station',
+    parser.add_argument('-s', '--station', action='store', dest='station',
                         help='Station to process.')
     parser.add_argument('-f', '--file', action='store', dest='file',
                         help='File to process.')
@@ -1340,13 +1341,13 @@ def main():
 
     args = parser.parse_args()
 
-    if not args.sensor or not args.file:
-        parser.error("--sensor and --file is required.")
+    if not args.station or not args.file:
+        parser.error("--station and --file is required.")
 
     app_cfg = utils.load_config(APP_CONFIG_PATH)
 
     run_update(app_cfg, args)
-    
+
 
 if __name__=='__main__':
     main()
