@@ -712,7 +712,7 @@ def process_five_min_parameters_to_profile_measurements_by_sensor(station, file)
                 avg_value = float(row.get(param))
             elif value_type == 'max_value':
                 max_value = float(row.get(param))
-            param_formatted_data.append((sensor_id, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, depth, min_value, avg_value, max_value, unit))
+            param_formatted_data.append((sensor_id, parameter_id, 0, month_first_day, int(profile_ts.timestamp()) * 1e3, vertical_position, min_value, avg_value, max_value, unit))
 
         insert_to_five_min_profile_measurements_by_sensor.delay(param_formatted_data)
  
