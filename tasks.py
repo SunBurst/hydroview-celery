@@ -73,7 +73,7 @@ def insert_to_daily_single_measurements_by_sensor(measurements):
     if insert_to_daily_single_measurements_by_sensor_query is None:    
         query = """
             INSERT INTO daily_single_measurements_by_sensor (sensor_id, parameter_id, 
-                qc_level, year, date, min_value, avg_value, max_value, unit) 
+                qc_level, year, timestamp, min_value, avg_value, max_value, unit) 
                     VALUES (?,?,?,?,?,?,?,?,?)"""
         insert_to_daily_single_measurements_by_sensor_query = session.prepare(query)
     for row in measurements:
@@ -88,7 +88,7 @@ def insert_to_hourly_single_measurements_by_sensor(measurements):
     if insert_to_hourly_single_measurements_by_sensor_query is None:    
         query = """
             INSERT INTO hourly_single_measurements_by_sensor (sensor_id, parameter_id, 
-                qc_level, year, date_hour, min_value, avg_value, max_value, unit) 
+                qc_level, year, timestamp, min_value, avg_value, max_value, unit) 
                     VALUES (?,?,?,?,?,?,?,?,?)"""
         insert_to_hourly_single_measurements_by_sensor_query = session.prepare(query)
     for row in measurements:
@@ -208,7 +208,7 @@ def insert_to_daily_profile_measurements_by_sensor(measurements):
     if insert_to_daily_profile_measurements_by_sensor_query is None:    
         query = """
             INSERT INTO daily_profile_measurements_by_sensor (sensor_id, parameter_id, 
-                qc_level, year, date, vertical_position, min_value, avg_value, max_value, 
+                qc_level, year, timestamp, vertical_position, min_value, avg_value, max_value, 
                     unit) VALUES (?,?,?,?,?,?,?,?,?,?)"""
         insert_to_daily_profile_measurements_by_sensor_query = session.prepare(query)
     for row in measurements:
@@ -223,7 +223,7 @@ def insert_to_hourly_profile_measurements_by_sensor(measurements):
     if insert_to_hourly_profile_measurements_by_sensor_query is None:    
         query = """
             INSERT INTO hourly_profile_measurements_by_sensor (sensor_id, parameter_id, 
-                qc_level, year, date_hour, vertical_position, min_value, avg_value, max_value, 
+                qc_level, year, timestamp, vertical_position, min_value, avg_value, max_value, 
                     unit) VALUES (?,?,?,?,?,?,?,?,?,?)"""
         insert_to_hourly_profile_measurements_by_sensor_query = session.prepare(query)
     for row in measurements:
