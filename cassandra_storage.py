@@ -756,7 +756,7 @@ def process_one_min_profile_measurements_by_sensor_profile_source(station, file)
         for row in param_data:
             ts = row.get('timestamp')
             year, week_number, weekday = ts.isocalendar()
-            week_first_day = (datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
+            week_first_day = (datetime.datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
             profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
             vertical_position = float(row.get(vertical_position_column))
             if vertical_position_correction_factor is not None:
@@ -801,7 +801,7 @@ def process_one_min_parameters_to_profile_measurements_by_sensor(station, file):
         for row in param_data:
             ts = row.get('timestamp')
             year, week_number, weekday = ts.isocalendar()
-            week_first_day = (datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
+            week_first_day = (datetime.datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
             profile_ts = datetime.datetime(ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second)
             min_value, avg_value, max_value = None, None, None
             if value_type == 'min_value':
@@ -1215,7 +1215,7 @@ def process_one_min_single_measurements_by_sensor(station, file):
         for row in param_data:
             ts = row.get('timestamp')
             year, week_number, weekday = ts.isocalendar()
-            week_first_day = (datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
+            week_first_day = (datetime.datetime.strptime('{} {} 1'.format(year, week_number), '%Y %W %w')).strftime("%Y-%m-%d")
             min_value, avg_value, max_value = None, None, None
             if value_type == 'min_value':
                 min_value = float(row.get(param))
