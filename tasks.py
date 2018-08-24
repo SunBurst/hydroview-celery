@@ -176,7 +176,7 @@ def insert_to_one_min_single_measurements_by_sensor(measurements):
     global insert_to_one_min_single_measurements_by_sensor_query
     if insert_to_one_min_single_measurements_by_sensor_query is None:    
         query = """
-            INSERT INTO one_min_single_parameter_measurements_by_sensor (sensor_id, 
+            INSERT INTO one_min_single_measurements_by_sensor (sensor_id, 
                 parameter_id, qc_level, week_first_day, timestamp, min_value, avg_value, 
                     max_value, unit) VALUES (?,?,?,?,?,?,?,?,?)"""
         insert_to_one_min_single_measurements_by_sensor_query = session.prepare(query)
