@@ -1108,7 +1108,7 @@ def process_fifteen_min_single_measurements_by_sensor(station, file):
             param_formatted_data.append((sensor_id, parameter_id, 0, month_first_day, int(ts.timestamp()) * 1e3, min_value, avg_value, max_value, unit))
 
         insert_to_fifteen_min_single_measurements_by_sensor.delay(param_formatted_data)
- 
+
     return num_of_new_rows
 
 def process_ten_min_single_measurements_by_sensor(station, file):
@@ -1119,7 +1119,7 @@ def process_ten_min_single_measurements_by_sensor(station, file):
     time_format_args_library = file.get('time_format_args_library')
     time_zone = file.get('time_zone')
     to_utc = file.get('to_utc')
-    time_columns = file.get('time_columns')        
+    time_columns = file.get('time_columns')
     parse_time_columns = file.get('parse_time_columns')
     parameters = file.get('parameters')
 
@@ -1147,7 +1147,7 @@ def process_ten_min_single_measurements_by_sensor(station, file):
             param_formatted_data.append((sensor_id, parameter_id, 0, month_first_day, int(ts.timestamp()) * 1e3, min_value, avg_value, max_value, unit))
 
         insert_to_ten_min_single_measurements_by_sensor.delay(param_formatted_data)
- 
+
     return num_of_new_rows
 
 def process_five_min_single_measurements_by_sensor(station, file):
