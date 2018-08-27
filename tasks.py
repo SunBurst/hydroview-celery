@@ -139,7 +139,7 @@ def insert_to_fifteen_min_single_measurements_by_sensor(measurements):
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
         
-    execute_concurrent_with_args(session, insert_to_fifteen_min_single_measurements_by_sensor_query, concurrency=50)
+    execute_concurrent_with_args(session, insert_to_fifteen_min_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
 def insert_to_ten_min_single_measurements_by_sensor(measurements):  
@@ -154,7 +154,7 @@ def insert_to_ten_min_single_measurements_by_sensor(measurements):
         row[0] = uuid.UUID(row[0])
         row[1] = uuid.UUID(row[1])
         
-    execute_concurrent_with_args(session, insert_to_ten_min_single_measurements_by_sensor_query, concurrency=50)
+    execute_concurrent_with_args(session, insert_to_ten_min_single_measurements_by_sensor_query, measurements, concurrency=50)
 
 @app.task
 def insert_to_five_min_single_measurements_by_sensor(measurements):   
